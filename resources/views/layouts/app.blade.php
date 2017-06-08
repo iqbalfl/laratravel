@@ -12,10 +12,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('aditional')
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -36,7 +38,13 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                      @if (Auth::check())
+                      <li><a href="{{ url('/home') }}"><i class='fa fa-dashboard'></i> Dashboard</a></li>
+                      @endif
+                      @role('member')
+                     <li><a href="#"><i class='fa fa-user'></i> My Profile</a></li>
+                     <li><a href="#"><i class='fa fa-shopping-cart'></i> Transaksi</a></li>
+                     @endrole
                     </ul>
 
                     <!-- Right Side Of Navbar -->

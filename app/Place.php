@@ -3,11 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Place extends Model
 {
-  //mass assignment
-  protected $fillable = ['name','description','category_id','province_id','regency_id','district_id','village_id','cost','admin_id'];
+   use Searchable;
+
+    //mass assignment
+    protected $fillable = ['name','description','category_id','province_id','regency_id','district_id','village_id','cost','admin_id'];
+
+   public function searchableAs()
+    {
+        return 'places_index';
+    }
 
   public function category()
     {

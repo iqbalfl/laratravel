@@ -12,6 +12,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- DataTables -->
+    <link href="{{asset('css/jquery.dataTables_.css')}}" rel="stylesheet">
+    <link href="{{asset('css/dataTables.bootstrap_.css')}}" rel="stylesheet">
+
+    <link href="{{ asset('/css/selectize.css') }}" rel="stylesheet">
+    <link href="{{ asset('/css/selectize.bootstrap3.css') }}" rel="stylesheet">
 
     @yield('aditional')
 </head>
@@ -41,9 +48,18 @@
                       @if (Auth::check())
                       <li><a href="{{ url('/home') }}"><i class='fa fa-dashboard'></i> Dashboard</a></li>
                       @endif
-                      @role('member')
-                     <li><a href="#"><i class='fa fa-user'></i> My Profile</a></li>
-                     <li><a href="#"><i class='fa fa-shopping-cart'></i> Transaksi</a></li>
+                     
+                     @role('member')
+                     <li class="dropdown">
+                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                     <i class='fa fa-user'></i> My Profile</a>
+                        <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{url('/member/settings')}}"><i class='fa fa-pencil'></i> Change Profile</a></li>
+                        <li><a href="{{url('/member/settings/password')}}"><i class='fa fa-lock'></i> Change Password</a></li>
+                        </ul>
+                     </li>
+                     
+                     <li><a href="{{ url('/member/orders') }}"><i class='fa fa-shopping-cart'></i> My Transaction</a></li>
                      @endrole
                     </ul>
 
@@ -84,5 +100,12 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <!-- DataTables -->
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('/js/selectize.min.js') }}"></script>
+    <script src="{{ asset('/js/custom.js') }}"></script>
+    @yield('js')
+    
 </body>
 </html>

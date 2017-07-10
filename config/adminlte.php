@@ -156,7 +156,7 @@ return [
                     'url'  => 'admin/transactions',
                 ],
                 [
-                    'text' => 'Confirmation',
+                    'text' => 'Confirmations',
                     'url'  => 'admin/confirmations',
                 ],
             ],

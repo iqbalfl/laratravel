@@ -8,7 +8,6 @@ use DB;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 
-
 class SettingsController extends Controller
 {
     //verifikasi user auth
@@ -77,6 +76,5 @@ class SettingsController extends Controller
       ]);
       return redirect('admin/settings/password');
     }
-
 
 }

@@ -9,7 +9,7 @@
 <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
   {!! Form::label('name', 'Deskripsi', ['class'=>'col-md-2 control-label']) !!}
   <div class="col-md-4">
-    {!! Form::text('description', null, ['class'=>'form-control']) !!}
+    {!! Form::textarea('description', null, ['class'=>'form-control']) !!}
     {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
   </div>
 </div>

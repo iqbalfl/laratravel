@@ -1,525 +1,318 @@
 @extends('layouts.app')
 @section('aditional')
-<style type="text/css">
-  body {
-  padding-top: 50px;
-}
-</style>
-<link href="/front/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/front/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="/front/css/styles.css?v=1.6" rel="stylesheet">
-<!-- js -->
-<script src="/front/js/jquery-1.11.1.min.js"></script>
-<script src="/front/js/scripts.js?v=1.7"></script>
-<!-- //js -->
-<!--FlexSlider-->
-    <link rel="stylesheet" href="/front/css/flexslider.css" type="text/css" media="screen" />
-    <script defer src="/front/js/jquery.flexslider.js"></script>
-    <script type="text/javascript">
-    $(window).load(function(){
-      $('.flexslider').flexslider({
-      animation: "slide",
-      start: function(slider){
-        $('body').removeClass('loading');
-      }
-      });
-    });
-    </script>
-<!--End-slider-script-->
-<!-- pop-up-script -->
-    <script src="/front/js/jquery.chocolat.js"></script>
-    <link rel="stylesheet" href="/front/css/chocolat.css" type="text/css" media="screen" charset="utf-8">
-    <!--light-box-files -->
-    <script type="text/javascript" charset="utf-8">
-    (function($) {
-      $('.view-seventh a').Chocolat();
-    })(jQuery);
-    </script>
-<!-- //pop-up-script -->
-<script src="/front/js/easyResponsiveTabs.js" type="text/javascript"></script>
-<!-- start-smoth-scrolling -->
-<script type="text/javascript" src="/front/js/move-top.js"></script>
-<script type="text/javascript" src="/front/js/easing.js"></script>
-<script type="text/javascript">
-  jQuery(document).ready(function($) {
-    $(".scroll").click(function(event){   
-      event.preventDefault();
-      $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
-    });
-  });
-</script>
-<!-- start-smoth-scrolling -->
-<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
-<link href='//fonts.googleapis.com/css?family=Comfortaa:400,300,700' rel='stylesheet' type='text/css'>
+  <!-- GOOGLE FONTS -->
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
+    <!-- /GOOGLE FONTS -->
+    <link rel="stylesheet" href="/front/css/bootstrap.css">
+    <link rel="stylesheet" href="/front/css/font-awesome.css">
+    <link rel="stylesheet" href="/front/css/icomoon.css">
+    <link rel="stylesheet" href="/front/css/styles.css">
+    <link rel="stylesheet" href="/front/css/mystyles.css">
+    <script src="/front/js/modernizr.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/typeahead.js/0.10.5/typeahead.jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/front/css/schemes/bright-turquoise.css" title="bright-turquoise" media="all" />
+    <style type="text/css">
+      body {
+      padding-top: 50px;
+    }
+    </style>
 @endsection
 
 @section('content')
-<!-- banner -->
-  <div class="banner">
-    <div class="header-top">
-      <div class="container">
-        <div class="head-logo">
-          <a href="index.html"><span>L</span>ara Travel<i>Feeling Amazing Tour</i></a>
-        </div>
-        <div class="clearfix"> </div>
-      </div>
-    </div>
-    <div class="banner-info">
-      <div class="container">
-        <h1>Book Your Best Trip</h1>
-        <div class="sap_tabs">  
-          <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
-              <ul class="resp-tabs-list">
-                <li class="resp-tab-item grid2" aria-controls="tab_item-1" role="tab"><span><i class="glyphicon glyphicon-usd" aria-hidden="true"></i>Budget</span></li>
-                <li class="resp-tab-item grid3" aria-controls="tab_item-2" role="tab"><span><i class="glyphicon glyphicon-bed" aria-hidden="true"></i>Cars</span></li>
-                <li class="resp-tab-item grid5" aria-controls="tab_item-3" role="tab"><span><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Destinations</span></li>
-                <div class="clear"></div>
-              </ul>            
-              <div class="resp-tabs-container">
-    
-                <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
-                  <div class="facts">
-                    <div class="budget">
-                      <div class="reservation">
-                        <ul>    
-                          <li class="span1_of_1 desti">
-                             <div class="book_date">
-                               <form>
-                                <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-                                <input type="text" placeholder="RP 2.000.000,00 / 1.500.000,00 dll" class="typeahead1 input-md form-control tt-input" required="">
-                               </form>
-                             </div>         
-                           </li>
-                        </ul>
-                      </div>
-                      <div class="reservation">
-                        <ul>  
-                           <li class="span1_of_3">
-                            <div class="date_btn date_car">
-                              <form>
-                                <input type="submit" value="Search" />
-                              </form>
+<!-- TOP AREA -->
+<div class="top-area show-onload">
+    <div class="bg-holder full">
+        <div class="bg-mask"></div>
+        <div class="bg-parallax" style="background-image:url(/front/img/196_365_2048x1365.jpg);"></div>
+        <div class="bg-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="search-tabs search-tabs-bg mt50">
+                            <h1>Find Your Perfect Trip</h1>
+                            <div class="tabbable">
+                                <ul class="nav nav-tabs" id="myTab">
+                                    <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-money"></i> <span >Budget</span></a>
+                                    </li>
+                                    <li><a href="#tab-2" data-toggle="tab"><i class="fa fa-car"></i> <span >Cars</span></a>
+                                    </li>
+                                    <li><a href="#tab-3" data-toggle="tab"><i class="fa fa-map-marker"></i> <span >Destinations</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane fade in active" id="tab-1">
+                                        <h2>Search destination by budget</h2>
+                                        <form method="GET" action="{{ route('search-budget') }}">
+                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-money input-icon"></i>
+                                                <label>Budget</label>
+                                                <input id="typeahead-budget" name="budget" class="typeahead form-control" placeholder="1.000.000, 2.000.000 etc" type="number" value="{{ old('budget') }}" />
+                                            </div>
+                                             <script type="text/javascript">
+                                               jQuery(document).ready(function($) {
+                                                var client = algoliasearch("1POBCW5OBL", "bbcd6d3debaa5f3a30baebf7d461569c");
+                                                var index = client.initIndex('places_index');
+
+                                                $('#typeahead-budget').typeahead(null, {
+                                                  source: index.ttAdapter({ "hitsPerPage": 10 }),
+                                                  displayKey: 'cost'
+                                                });
+                                              });
+                                            </script>
+                                            <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                                        </form>
+                                    </div>
+                              
+                                    <div class="tab-pane fade" id="tab-2">
+                                        <h2>Search for Cheap Cars</h2>
+                                        <form method="GET" action="{{ route('search-car') }}">
+                                        <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-car input-icon"></i>
+                                            <label>Type the car what you want</label>
+                                            <input id="typeahead-cars" name="car" class="typeahead form-control" placeholder="Avanza, Inova, Fortuner, Pajero Sport etc" type="text" value="{{ old('car') }}" />
+                                        </div>
+                                        <script type="text/javascript">
+                                               jQuery(document).ready(function($) {
+                                                var client = algoliasearch("1POBCW5OBL", "bbcd6d3debaa5f3a30baebf7d461569c");
+                                                var index = client.initIndex('cars_index');
+
+                                                $('#typeahead-cars').typeahead(null, {
+                                                  source: index.ttAdapter({ "hitsPerPage": 10 }),
+                                                  displayKey: 'name'
+                                                });
+                                              });
+                                            </script>                                           
+                                            <button class="btn btn-primary btn-lg" type="submit">Search Cars</button>
+                                        </form>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="tab-3">
+                                        <h2>Search for Destination</h2>
+                                        <form method="GET" action="{{ route('search-destination') }}">
+                                            <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
+                                                <label>Where are you going?</label>
+                                                <input id="typeahead-destinations" name="destination" class="typeahead form-control" placeholder="Bali, Lombok, Bromo, Pangandaran etc" type="text" value="{{ old('destination') }}" />
+                                            </div> 
+                                             <script type="text/javascript">
+                                               jQuery(document).ready(function($) {
+                                                var client = algoliasearch("1POBCW5OBL", "bbcd6d3debaa5f3a30baebf7d461569c");
+                                                var index = client.initIndex('places_index');
+
+                                                $('#typeahead-destinations').typeahead(null, {
+                                                  source: index.ttAdapter({ "hitsPerPage": 10 }),
+                                                  displayKey: 'name'
+                                                });
+                                              });
+                                            </script>   
+                                            <button class="btn btn-primary btn-lg" type="submit">Search for Destination</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                           </li>
-                           <div class="clearfix"></div>
-                        </ul>
-                      </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              
-                <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
-                  <div class="facts">
-                    <div class="cars">
-                      <div class="reservation">
-                        <ul>    
-                          <li  class="span1_of_1 desti1">
-                             <div class="book_date">
-                               <form>
-                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                <input type="text" placeholder="Pick Up Location" class="typeahead1 input-md form-control tt-input" required="">
-                               </form>
-                             </div>         
-                           </li>
-                           <li  class="span1_of_1 desti1">
-                             <div class="book_date">
-                               <form>
-                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                <input type="text" placeholder="Drop Off Location" class="typeahead1 input-md form-control tt-input" required="">
-                               </form>
-                             </div>         
-                           </li>
-                           <div class="clearfix"> </div>
-                        </ul>
-                      </div>
-                      <div class="reservation">
-                        <ul>  
-                           <li  class="span1_of_1">
-                             <h5>Pick Up Date</h5>
-                             <div class="book_date">
-                            <form>
-                              <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                              <input class="date" id="datepicker" type="text" value="19/10/2016" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '19/10/2016';}" required="">
-                             </form>
-                             </div>   
-                           </li>
-                           <li  class="span1_of_1 left">
-                             <h5>Drop Off Date</h5>
-                             <div class="book_date">
-                              <form>
-                                <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-                                <input class="date" id="datepicker" type="text" value="19/10/2016" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '19/10/2016';}" required="">
-                              </form>
-                             </div>         
-                           </li>
-                           <div class="clearfix"> </div>
-                        </ul>
-                      </div>
-                      <div class="reservation">
-                        <ul>  
-                           <li class="span1_of_3">
-                              <div class="date_btn date_car">
-                                <form>
-                                  <input type="submit" value="Search Cars" />
-                                </form>
-                              </div>
-                           </li>
-                           <div class="clearfix"></div>
-                        </ul>
-                      </div>
+
+                    <div class="col-md-4">
+                        <div class="loc-info text-right hidden-xs hidden-sm">
+                            <h3 class="loc-info-title"><img src="/front/img/flags/32/id.png" alt="Image Alternative text" title="Indonesian Flag" />Indonesia</h3>
+                            <p class="loc-info-weather"><span class="loc-info-weather-num">+31</span><i class="im im-rain loc-info-weather-icon"></i>
+                            </p>
+                            <a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a>
+                        </div>
                     </div>
-                  </div>
                 </div>
-                <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-3">
-                  <div class="facts">
-                    <div class="destination">
-                      <div class="reservation">
-                        <ul>    
-                          <li  class="span1_of_1 desti">
-                             <div class="book_date">
-                               <form>
-                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                                <input type="text" placeholder="City ,Region Or Country" class="typeahead1 input-md form-control tt-input" required="">
-                               </form>
-                             </div>         
-                           </li>
-                        </ul>
-                      </div>
-                      <div class="reservation">
-                        <ul>  
-                           <li class="span1_of_3">
-                              <div class="date_btn date_car">
-                                <form>
-                                  <input type="submit" value="Reach Destinations" />
-                                </form>
-                              </div>
-                           </li>
-                           <div class="clearfix"></div>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-          </div>
+            </div>
         </div>
-        <script type="text/javascript">
-              (function ($) {
-              $(document).ready(function () {
-                $('#horizontalTab').easyResponsiveTabs({
-                  type: 'default', //Types: default, vertical, accordion           
-                  width: 'auto', //auto or any width like 600px
-                  fit: true   // 100% fit in a container
-                });
-              });
-              })(jQuery);
-            </script>
-        <div class="login">
-          <a href="{{ route('login') }}">Login</a>
-        </div>
-      </div>
     </div>
-  </div>
-<!-- //banner -->
-<!-- about-us -->
-  <div id="about" class="about">
-    <div class="container">
-      <h3>About Us</h3>
-      <p class="ever">To take a trivial example, which of us ever undertakes laborious physical exercise.</p>
-      <div class="about-grids">
-        <div class="col-md-6 about-grid">
-          <div class="about-grid1">
-            <div class="itis">
-              <h4>voluptas nulla pariatur</h4>
-            </div>
-            <div class="hji">
-              <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
-            </div>
-            <div class="about-grid1-pos">
-              <img src="front/images/1.jpg" alt=" " class="img-responsive" />
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 about-grid">
-          <div class="about-grid2">
-            <div class="col-xs-2 about-grid2-left">
-              <p>01.</p>
-            </div>
-            <div class="col-xs-10 about-grid2-right">
-              <p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus 
-                maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="about-grids">
-        <div class="col-md-6 about-grid">
-          <div class="about-grid2">
-            <div class="col-xs-2 about-grid2-left">
-              <p>02.</p>
-            </div>
-            <div class="col-xs-10 about-grid2-right">
-              <p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus 
-                maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-        </div>
-        <div class="col-md-6 about-grid">
-          <div class="about-grid1 about-grd1">
-            <div class="itis">
-              <h4>voluptas nulla pariatur</h4>
-            </div>
-            <div class="hji">
-              <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
-            </div>
-            <div class="about-grid1-pos1">
-              <img src="front/images/2.jpg" alt=" " class="img-responsive" />
-            </div>
-          </div>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-    </div>
-  </div>
-<!-- //about-us -->
-<!-- about-bottom -->
-  <div class="about-bottom">
-    <div class="container">
-      <section class="slider">
-        <div class="flexslider">
-          <ul class="slides">
-            <li>
-              <div class="about-bottom-grids">
-                <div class="col-md-4 about-bottom-grid-left">
-                  <h3>ea commodi consequatur</h3>
-                  <p>Quibusdam et aut officiis debitis<span>Lara Travel</span></p>
+</div>
+<!-- END TOP AREA  -->
+
+<div class="gap"></div>
+
+
+<div class="container">
+    <div class="row row-wrap" data-gutter="60">
+        <div class="col-md-4">
+            <div class="thumb">
+                <header class="thumb-header"><i class="fa fa-dollar box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                </header>
+                <div class="thumb-caption">
+                    <h5 class="thumb-title"><a class="text-darken" href="#">Best Price Guarantee</a></h5>
+                    <p class="thumb-desc">Eu lectus non vivamus ornare lacinia elementum faucibus natoque parturient ullamcorper placerat</p>
                 </div>
-                <div class="col-md-8 about-bottom-grid-right">
-                  <div class="col-md-4 about-bottom-grid-right-grid">
-                    <div class="about-bottom-grid-right-grid1">
-                      <img src="front/images/4.jpg" alt=" " class="img-responsive" />
-                      <div class="about-bottom-pos">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                      </div>
-                      <p>officiis debitis</p>
-                    </div>
-                  </div>
-                  <div class="col-md-4 about-bottom-grid-right-grid">
-                    <div class="about-bottom-grid-right-grid1">
-                      <img src="front/images/5.jpg" alt=" " class="img-responsive" />
-                      <div class="about-bottom-pos">
-                        <span class="glyphicon glyphicon-random" aria-hidden="true"></span>
-                      </div>
-                      <p>officiis debitis</p>
-                    </div>
-                  </div>
-                  <div class="col-md-4 about-bottom-grid-right-grid">
-                    <div class="about-bottom-grid-right-grid1">
-                      <img src="front/images/6.jpg" alt=" " class="img-responsive" />
-                      <div class="about-bottom-pos">
-                        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-                      </div>
-                      <p>officiis debitis</p>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumb">
+                <header class="thumb-header"><i class="fa fa-lock box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                </header>
+                <div class="thumb-caption">
+                    <h5 class="thumb-title"><a class="text-darken" href="#">Trust & Safety</a></h5>
+                    <p class="thumb-desc">Imperdiet nisi potenti fermentum vehicula eleifend elementum varius netus adipiscing neque quisque</p>
                 </div>
-                <div class="clearfix"></div>
-              </div>
-            </li>
-            <li>
-              <div class="about-bottom-grids">
-                <div class="col-md-4 about-bottom-grid-left">
-                  <h3>ea commodi consequatur</h3>
-                  <p>Quibusdam et aut officiis debitis<span>Lara Travel</span></p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="thumb">
+                <header class="thumb-header"><i class="fa fa-thumbs-o-up box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                </header>
+                <div class="thumb-caption">
+                    <h5 class="thumb-title"><a class="text-darken" href="#">Best Travel Agent</a></h5>
+                    <p class="thumb-desc">Curae urna fusce massa a lacus nisl id velit magnis venenatis consequat</p>
                 </div>
-                <div class="col-md-8 about-bottom-grid-right">
-                  <div class="col-md-4 about-bottom-grid-right-grid">
-                    <div class="about-bottom-grid-right-grid1">
-                      <img src="front/images/8.jpg" alt=" " class="img-responsive" />
-                      <div class="about-bottom-pos">
-                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                      </div>
-                      <p>officiis debitis</p>
+            </div>
+        </div>
+    </div>
+    <div class="gap gap-small"></div>
+</div>
+
+<div class="container">
+    <div class="gap"></div>
+    <h2 class="text-center">Top Destinations</h2>
+    <div class="gap">
+        <div class="row row-wrap">
+            <div class="col-md-3">
+                <div class="thumb">
+                    <header class="thumb-header">
+                        <a class="hover-img curved" href="#">
+                            <img src="/front/img/the_journey_home_400x300.jpg" alt="Image Alternative text" title="the journey home" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                        </a>
+                    </header>
+                    <div class="thumb-caption">
+                        <h4 class="thumb-title">Bali</h4>
+                        <p class="thumb-desc">Ut blandit pharetra suspendisse montes libero eleifend bibendum</p>
                     </div>
-                  </div>
-                  <div class="col-md-4 about-bottom-grid-right-grid">
-                    <div class="about-bottom-grid-right-grid1">
-                      <img src="front/images/9.jpg" alt=" " class="img-responsive" />
-                      <div class="about-bottom-pos">
-                        <span class="glyphicon glyphicon-random" aria-hidden="true"></span>
-                      </div>
-                      <p>officiis debitis</p>
-                    </div>
-                  </div>
-                  <div class="col-md-4 about-bottom-grid-right-grid">
-                    <div class="about-bottom-grid-right-grid1">
-                      <img src="front/images/7.jpg" alt=" " class="img-responsive" />
-                      <div class="about-bottom-pos">
-                        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
-                      </div>
-                      <p>officiis debitis</p>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
-              </div>
-            </li>
-          </ul>
+            </div>
+            <div class="col-md-3">
+                <div class="thumb">
+                    <header class="thumb-header">
+                        <a class="hover-img curved" href="#">
+                            <img src="/front/img/upper_lake_in_new_york_central_park_800x600.jpg" alt="Image Alternative text" title="Upper Lake in New York Central Park" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                        </a>
+                    </header>
+                    <div class="thumb-caption">
+                        <h4 class="thumb-title">Dunia Fantasi</h4>
+                        <p class="thumb-desc">Cursus faucibus egestas rutrum mauris vulputate consequat ante</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumb">
+                    <header class="thumb-header">
+                        <a class="hover-img curved" href="#">
+                            <img src="/front/img/people_on_the_beach_800x600.jpg" alt="Image Alternative text" title="people on the beach" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                        </a>
+                    </header>
+                    <div class="thumb-caption">
+                        <h4 class="thumb-title">Pantai Pangandaran</h4>
+                        <p class="thumb-desc">Senectus hendrerit torquent lorem scelerisque quam a curae</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumb">
+                    <header class="thumb-header">
+                        <a class="hover-img curved" href="#">
+                            <img src="/front/img/lack_of_blue_depresses_me_800x600.jpg" alt="Image Alternative text" title="lack of blue depresses me" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                        </a>
+                    </header>
+                    <div class="thumb-caption">
+                        <h4 class="thumb-title">Lombok</h4>
+                        <p class="thumb-desc">Penatibus ac lacinia platea cras lobortis nullam dapibus</p>
+                    </div>
+                </div>
+            </div>
         </div>
-      </section>
     </div>
-  </div>
-<!-- //about-bottom -->
-<!-- twitter-text -->
-  <div id="dfg" class="twitter-text">
+
+
+</div>
+<footer id="main-footer">
     <div class="container">
-      <div class="twitter-txt">
-        <h3><a href="mailto:info@example.com">info@example.com</a> Donec sollicitudin molestie malesuada. Nulla quis lorem ut libero.</h3>
-        <p>about 13 hours,12 minutes ago</p>
-      </div>
-    </div>
-  </div>
-<!--contact-->
-  <div id="mail" class="contact">
-    <div class="container">
-      <h3>How to Find Us</h3>
-      <p class="ever">To take a trivial example, which of us ever undertakes laborious physical exercise.</p>
-      <div class="contact-grids">
-        <div class="col-md-7 contact-right">        
-          <form>
-            <input type="text" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}" required="">
-            <input type="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
-            <input type="text" value="Telephone" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Telephone';}" required="">
-            <textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message...';}" required="">Message...</textarea>
-            <input type="submit" value="Submit" >
-          </form>
+        <div class="row row-wrap">
+            <div class="col-md-3">
+                <a class="logo" href="{{url('/')}}">
+                    <img src="/front/img/logo-invert.png" alt="Image Alternative text" title="LaraTravel.co.id" />
+                </a>
+                <p class="mb20">Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more!</p>
+                <ul class="list list-horizontal list-space">
+                    <li>
+                        <a class="fa fa-facebook box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="fa fa-twitter box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="fa fa-google-plus box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="fa fa-linkedin box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                    </li>
+                    <li>
+                        <a class="fa fa-pinterest box-icon-normal round animate-icon-bottom-to-top" href="#"></a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <h4>Newsletter</h4>
+                <form>
+                    <label>Enter your E-mail Address</label>
+                    <input type="text" class="form-control">
+                    <p class="mt5"><small>*We Never Send Spam</small>
+                    </p>
+                    <input type="submit" class="btn btn-primary" value="Subscribe">
+                </form>
+            </div>
+            <div class="col-md-2">
+                <ul class="list list-footer">
+                    <li><a href="#">About US</a>
+                    </li>
+                    <li><a href="#">Press Centre</a>
+                    </li>
+                    <li><a href="#">Best Price Guarantee</a>
+                    </li>
+                    <li><a href="#">Travel News</a>
+                    </li>
+                    <li><a href="#">Jobs</a>
+                    </li>
+                    <li><a href="#">Privacy Policy</a>
+                    </li>
+                    <li><a href="#">Terms of Use</a>
+                    </li>
+                    <li><a href="#">Feedback</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h4>Have Questions?</h4>
+                <h4 class="text-color">+1-202-555-0173</h4>
+                <h4><a href="#" class="text-color">support@laratravel.co.id</a></h4>
+                <p>24/7 Dedicated Customer Support</p>
+            </div>
+
         </div>
-        <div class="col-md-5 contact-left">
-          <p>"Lorem Ipsum"is the common name dummy text often used in the design, printing, and type setting industriescommon name dummy text often used in the design, printing, and type setting industries. "</p>
-          <ul>
-            <li><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-              756 globel Place, Indonesia.
-            </li>         
-            <li><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
-              +123 2222 222
-            </li>
-            <li><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-              <a href="mailto:info@example.com">mail@example.com</a>
-            </li>
-          </ul>
-        </div>            
-        <div class="clearfix"> </div>
-      </div>
-    </div>      
-  </div>
-<!--//contact-->
-<!-- footer-top -->
-  <div class="footer-top">
-    <div class="container">
-      <div class="col-md-3 footer-top-grid">
-        <h3>About <span>Travel</span></h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque 
-          id arcu neque, at convallis est felis.</p>
-      </div>
-      <div class="col-md-3 footer-top-grid">
-        <h3>THE <span>TAGS</span></h3>
-        <div class="unorder">
-          <ul class="tag2">
-            <li><a href="#">awesome</a></li>
-            <li><a href="#">strategy</a></li>
-            <li><a href="#">development</a></li>
-          </ul>
-          <ul class="tag2">
-            <li><a href="#">css</a></li>
-            <li><a href="#">photoshop</a></li>
-            <li><a href="#">photography</a></li>
-            <li><a href="#">html</a></li>
-          </ul>
-          <ul class="tag2">
-            <li><a href="#">awesome</a></li>
-            <li><a href="#">strategy</a></li>
-            <li><a href="#">development</a></li>
-          </ul>
-          <ul class="tag2">
-            <li><a href="#">css</a></li>
-            <li><a href="#">photoshop</a></li>
-            <li><a href="#">photography</a></li>
-            <li><a href="#">html</a></li>
-          </ul>
-          <ul class="tag2">
-            <li><a href="#">awesome</a></li>
-            <li><a href="#">strategy</a></li>
-            <li><a href="#">development</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-3 footer-top-grid">
-        <h3>Latest <span>Tweets</span></h3>
-        <ul class="twi">
-          <li>I like this awesome freebie. Check it out <a href="mailto:info@example.com" class="mail">
-          @http://t.co/9vslJFpW</a> <span>ABOUT 15 MINS</span></li>
-          <li>I like this awesome freebie. You can view it online here<a href="mailto:info@example.com" class="mail">
-          @http://t.co/9vslJFpW</a> <span>ABOUT 2 HOURS AGO</span></li>
-        </ul>
-      </div>
-      <div class="col-md-3 footer-top-grid">
-        <h3>Flickr <span>Feed</span></h3>
-        <div class="flickr-grids">
-          <div class="flickr-grid">
-            <a href="#"><img src="front/images/11.jpg" alt=" " class="img-responsive" /></a>
-          </div>
-          <div class="flickr-grid">
-            <a href="#"><img src="front/images/12.jpg" alt=" " class="img-responsive" /></a>
-          </div>
-          <div class="flickr-grid">
-            <a href="#"><img src="front/images/13.jpg" alt=" " class="img-responsive" /></a>
-          </div>
-          <div class="clearfix"> </div>
-          
-          <div class="flickr-grid">
-            <a href="#"><img src="front/images/16.jpg" alt=" " class="img-responsive" /></a>
-          </div>
-          <div class="flickr-grid">
-            <a href="#"><img src="front/images/14.jpg" alt=" " class="img-responsive" /></a>
-          </div>
-          <div class="flickr-grid">
-            <a href="#"><img src="front/images/15.jpg" alt=" " class="img-responsive" /></a>
-          </div>
-          <div class="clearfix"> </div>
-        </div>
-      </div>
-      <div class="clearfix"> </div>
     </div>
-  </div>
-<!-- //footer-top -->
-<!-- footer -->
-  <div class="footer">
-    <div class="container">
-      <div class="footer-left">
-        <ul>
-          <li><a href="index.html"><i>L</i>ara Travel</a><span> |</span></li>
-          <li><p>The awesome agency. <span>0800 (123) 4567 // Indonesia 746 PO</span></p></li>
-        </ul>
-      </div>
-      <div class="footer-right">
-        <p>© 2017 Lara Travel. All rights reserved</p>
-      </div>
-      <div class="clearfix"> </div>
-    </div>
-  </div>
-<!-- //footer -->
-<!-- here stars scrolling icon -->
-  <script type="text/javascript">
-  (function ($) {
-    $(document).ready(function() {            
-      $().UItoTop({ easingType: 'easeOutQuart' });                
-      });
-    })(jQuery);
-  </script>
-<!-- //here ends scrolling icon -->
+</footer>
+
+<script src="/front/js/bootstrap.js"></script>
+<script src="/front/js/slimmenu.js"></script>
+<script src="/front/js/bootstrap-datepicker.js"></script>
+<script src="/front/js/bootstrap-timepicker.js"></script>
+<script src="/front/js/nicescroll.js"></script>
+<script src="/front/js/dropit.js"></script>
+<script src="/front/js/ionrangeslider.js"></script>
+<script src="/front/js/icheck.js"></script>
+<script src="/front/js/fotorama.js"></script>
+<script src="/front/js/typeahead.js"></script>
+<script src="/front/js/card-payment.js"></script>
+<script src="/front/js/magnific.js"></script>
+<script src="/front/js/owl-carousel.js"></script>
+<script src="/front/js/fitvids.js"></script>
+<script src="/front/js/tweet.js"></script>
+<script src="/front/js/gridrotator.js"></script>
+<script src="/front/js/custom.js"></script>
+</div>
 @endsection

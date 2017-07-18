@@ -11,24 +11,24 @@
 
 <p align="center">
 
-<p> #Home Page
+<p> #Home Page </p>
 <a href="https://ibb.co/dBbpja"><img src="https://preview.ibb.co/fiBN4a/index.png" alt="index" border="0"></a>
 
-<p> #Prefiew Destination
+<p> #Prefiew Destination </p>
 <a href="https://ibb.co/j6cC4a"><img src="https://preview.ibb.co/cd5Mxv/index2.png" alt="index2" border="0"></a>
 
-<p> #Search Result with ALGOLIA
+<p> #Search Result with ALGOLIA </p>
 <a href="https://ibb.co/g54s4a"><img src="https://preview.ibb.co/emAX4a/search_result.png" alt="search_result" border="0"></a>
-</p>
 
-<p> #Admin Panel
+<p> #Admin Panel </p>
 <a href="https://ibb.co/dApWxv"><img src="https://preview.ibb.co/iZuycv/admin_panel.png" alt="admin_panel" border="0"></a>
 
-<p> #Member Panel
+<p> #Member Panel </p>
 <a href="https://ibb.co/dxnZHv"><img src="https://preview.ibb.co/iD93AF/member_panel.png" alt="member_panel" border="0"></a>
 
-<p> #Invoice
+<p> #Invoice </p>
 <a href="https://ibb.co/bsZs4a"><img src="https://preview.ibb.co/ktgGVF/invoice.png" alt="invoice" border="0"></a>
+</p>
 
 ## How To Install
 

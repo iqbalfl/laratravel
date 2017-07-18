@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use App\Http\Requests;
 use Session;
 use DB;
@@ -68,6 +69,7 @@ class PlacesController extends Controller
       $this->validate($request, [
         'name' => 'required',
         'description' => 'required',
+        'image' => 'image|max:2048',
         'category_id' => 'required',
         'province_id' => 'required',
         'regency_id' => 'required',
@@ -76,7 +78,24 @@ class PlacesController extends Controller
         'cost' => 'required',
         'admin_id' => 'required'
       ]);
-      $place = Place::create($request->all());
+
+      $place = Place::create($request->except('image'));
+
+      // isi field image jika ada image yang diupload
+      if ($request->hasFile('image')) {
+        // Mengambil file yang diupload
+        $uploaded_image = $request->file('image');
+        // mengambil extension file
+        $extension = $uploaded_image->getClientOriginalExtension();
+        // membuat nama file random berikut extension
+        $filename = md5(time()) . '.' . $extension;
+        // menyimpan image ke folder public/img
+        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+        $uploaded_image->move($destinationPath, $filename);
+        // mengisi field image di place dengan filename yang baru dibuat
+        $place->image = $filename;
+        $place->save();
+      }
 
       Session::flash("flash_notification", [
         "level"=>"success",
@@ -122,6 +141,7 @@ class PlacesController extends Controller
       $this->validate($request, [
         'name' => 'required',
         'description' => 'required',
+        'image' => 'image|max:2048',
         'category_id' => 'required',
         'province_id' => 'required',
         'regency_id' => 'required',
@@ -133,6 +153,32 @@ class PlacesController extends Controller
 
         $place = Place::find($id);
         $place->update($request->all());
+
+        if ($request->hasFile('image')) {
+          // menambil image yang diupload berikut ekstensinya
+          $filename = null;
+          $uploaded_image = $request->file('image');
+          $extension = $uploaded_image->getClientOriginalExtension();
+          // membuat nama file random dengan extension
+          $filename = md5(time()) . '.' . $extension;
+          $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+          // memindahkan file ke folder public/img
+          $uploaded_image->move($destinationPath, $filename);
+          // hapus image lama, jika ada
+          if ($place->image) {
+            $old_image = $place->image;
+            $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+            . DIRECTORY_SEPARATOR . $place->image;
+            try {
+              File::delete($filepath);
+            } catch (FileNotFoundException $e) {
+              // File sudah dihapus/tidak ada
+            }
+          }
+          // ganti field image dengan image yang baru
+          $place->image = $filename;
+          $place->save();
+        }
 
       Session::flash("flash_notification", [
         "level"=>"success",
@@ -150,7 +196,20 @@ class PlacesController extends Controller
      */
     public function destroy($id)
     {
-        Place::destroy($id);
+      $place = Place::find($id);
+
+      // hapus image lama, jika ada
+      if ($place->image) {
+        $old_image = $place->image;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+        . DIRECTORY_SEPARATOR . $place->image;
+        try {
+          File::delete($filepath);
+        } catch (FileNotFoundException $e) {
+          // File sudah dihapus/tidak ada
+        }
+      }
+      $place->delete();
 
         Session::flash("flash_notification", [
           "level"=>"success",

@@ -3,18 +3,19 @@
 @section('title', 'LaraTravel')
 
 @section('content')
-@include('layouts._flash')
-  <div class="container">
+  <div class="container-fluid spark-screen">
+  @include('layouts._flash')
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb">
           <li><a href="{{ url('/home') }}">Dashboard</a></li>
           <li class="active">Categories</li>
         </ul>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">Categories
-          <div class="panel-body">
+        <div class="box">
+          <div class="box-header with-border">
+            <h2 class="box-title">Categories</h2>
+          </div>
+          <div class="box-body">
             <p> <a class="btn btn-primary" href="{{ route('categories.create') }}">Tambah</a> </p>
             {!! $html->table(['class'=>'table-striped']) !!}
           </div>

@@ -4,16 +4,16 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,600' rel='stylesheet' type='text/css'>
     <!-- /GOOGLE FONTS -->
-    <link rel="stylesheet" href="/front/css/bootstrap.css">
-    <link rel="stylesheet" href="/front/css/font-awesome.css">
-    <link rel="stylesheet" href="/front/css/icomoon.css">
-    <link rel="stylesheet" href="/front/css/styles.css">
-    <link rel="stylesheet" href="/front/css/mystyles.css">
-    <script src="/front/js/modernizr.js"></script>
+    <link rel="stylesheet" href="{{asset('/front/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('/front/css/font-awesome.css')}}">
+    <link rel="stylesheet" href="{{asset('/front/css/icomoon.css')}}">
+    <link rel="stylesheet" href="{{asset('/front/css/styles.css')}}">
+    <link rel="stylesheet" href="{{asset('/front/css/mystyles.css')}}">
+    <script src="{{asset('/front/js/modernizr.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="//cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
     <script src="https://cdn.jsdelivr.net/typeahead.js/0.10.5/typeahead.jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/front/css/schemes/bright-turquoise.css" title="bright-turquoise" media="all" />
+    <link rel="stylesheet" type="text/css" href="{{asset('/front/css/schemes/bright-turquoise.css')}}" title="bright-turquoise" media="all" />
     <style type="text/css">
       body {
       padding-top: 50px;
@@ -26,7 +26,7 @@
 <div class="top-area show-onload">
     <div class="bg-holder full">
         <div class="bg-mask"></div>
-        <div class="bg-parallax" style="background-image:url(/front/img/196_365_2048x1365.jpg);"></div>
+        <div class="bg-parallax" style="background-image:url({{asset('/front/img/196_365_2048x1365.jpg')}});"></div>
         <div class="bg-content">
             <div class="container">
                 <div class="row">
@@ -64,7 +64,7 @@
                                             <button class="btn btn-primary btn-lg" type="submit">Search</button>
                                         </form>
                                     </div>
-                              
+
                                     <div class="tab-pane fade" id="tab-2">
                                         <h2>Search for Cheap Cars</h2>
                                         <form method="GET" action="{{ route('search-car') }}">
@@ -82,7 +82,7 @@
                                                   displayKey: 'name'
                                                 });
                                               });
-                                            </script>                                           
+                                            </script>
                                             <button class="btn btn-primary btn-lg" type="submit">Search Cars</button>
                                         </form>
                                     </div>
@@ -93,7 +93,7 @@
                                             <div class="form-group form-group-lg form-group-icon-left"><i class="fa fa-map-marker input-icon"></i>
                                                 <label>Where are you going?</label>
                                                 <input id="typeahead-destinations" name="destination" class="typeahead form-control" placeholder="Bali, Lombok, Bromo, Pangandaran etc" type="text" value="{{ old('destination') }}" />
-                                            </div> 
+                                            </div>
                                              <script type="text/javascript">
                                                jQuery(document).ready(function($) {
                                                 var client = algoliasearch("1POBCW5OBL", "bbcd6d3debaa5f3a30baebf7d461569c");
@@ -104,7 +104,7 @@
                                                   displayKey: 'name'
                                                 });
                                               });
-                                            </script>   
+                                            </script>
                                             <button class="btn btn-primary btn-lg" type="submit">Search for Destination</button>
                                         </form>
                                     </div>
@@ -115,7 +115,7 @@
 
                     <div class="col-md-4">
                         <div class="loc-info text-right hidden-xs hidden-sm">
-                            <h3 class="loc-info-title"><img src="/front/img/flags/32/id.png" alt="Image Alternative text" title="Indonesian Flag" />Indonesia</h3>
+                            <h3 class="loc-info-title"><img src="{{asset('/front/img/flags/32/id.png')}}" alt="Image Alternative text" title="Indonesian Flag" />Indonesia</h3>
                             <p class="loc-info-weather"><span class="loc-info-weather-num">+31</span><i class="im im-rain loc-info-weather-icon"></i>
                             </p>
                             <a class="btn btn-white btn-ghost mt10" href="#"><i class="fa fa-angle-right"></i> Explore</a>
@@ -172,59 +172,23 @@
     <h2 class="text-center">Top Destinations</h2>
     <div class="gap">
         <div class="row row-wrap">
+          @foreach ($place as $data)
             <div class="col-md-3">
                 <div class="thumb">
                     <header class="thumb-header">
-                        <a class="hover-img curved" href="#">
-                            <img src="/front/img/the_journey_home_400x300.jpg" alt="Image Alternative text" title="the journey home" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
+                        <a class="hover-img curved" href="{{ url('/place/view',$data->id) }}">
+                            <img src="{{ asset('img/'.$data->image) }}" alt="Image Description" title="{{$data->name}}" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
                         </a>
                     </header>
                     <div class="thumb-caption">
-                        <h4 class="thumb-title">Bali</h4>
-                        <p class="thumb-desc">Ut blandit pharetra suspendisse montes libero eleifend bibendum</p>
+                        <h4 class="thumb-title">{{$data->name}}</h4>
+                        <p class="thumb-desc">{{$data->description}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="thumb">
-                    <header class="thumb-header">
-                        <a class="hover-img curved" href="#">
-                            <img src="/front/img/upper_lake_in_new_york_central_park_800x600.jpg" alt="Image Alternative text" title="Upper Lake in New York Central Park" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
-                        </a>
-                    </header>
-                    <div class="thumb-caption">
-                        <h4 class="thumb-title">Dunia Fantasi</h4>
-                        <p class="thumb-desc">Cursus faucibus egestas rutrum mauris vulputate consequat ante</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumb">
-                    <header class="thumb-header">
-                        <a class="hover-img curved" href="#">
-                            <img src="/front/img/people_on_the_beach_800x600.jpg" alt="Image Alternative text" title="people on the beach" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
-                        </a>
-                    </header>
-                    <div class="thumb-caption">
-                        <h4 class="thumb-title">Pantai Pangandaran</h4>
-                        <p class="thumb-desc">Senectus hendrerit torquent lorem scelerisque quam a curae</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumb">
-                    <header class="thumb-header">
-                        <a class="hover-img curved" href="#">
-                            <img src="/front/img/lack_of_blue_depresses_me_800x600.jpg" alt="Image Alternative text" title="lack of blue depresses me" /><i class="fa fa-plus box-icon-white box-icon-border hover-icon-top-right round"></i>
-                        </a>
-                    </header>
-                    <div class="thumb-caption">
-                        <h4 class="thumb-title">Lombok</h4>
-                        <p class="thumb-desc">Penatibus ac lacinia platea cras lobortis nullam dapibus</p>
-                    </div>
-                </div>
-            </div>
+          @endforeach
         </div>
+        {{$place->links()}}
     </div>
 
 
@@ -234,7 +198,7 @@
         <div class="row row-wrap">
             <div class="col-md-3">
                 <a class="logo" href="{{url('/')}}">
-                    <img src="/front/img/logo-invert.png" alt="Image Alternative text" title="LaraTravel.co.id" />
+                    <img src="{{asset('/front/img/logo-invert.png')}}" alt="Image Alternative text" title="LaraTravel.co.id" />
                 </a>
                 <p class="mb20">Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more!</p>
                 <ul class="list list-horizontal list-space">
@@ -297,22 +261,22 @@
     </div>
 </footer>
 
-<script src="/front/js/bootstrap.js"></script>
-<script src="/front/js/slimmenu.js"></script>
-<script src="/front/js/bootstrap-datepicker.js"></script>
-<script src="/front/js/bootstrap-timepicker.js"></script>
-<script src="/front/js/nicescroll.js"></script>
-<script src="/front/js/dropit.js"></script>
-<script src="/front/js/ionrangeslider.js"></script>
-<script src="/front/js/icheck.js"></script>
-<script src="/front/js/fotorama.js"></script>
-<script src="/front/js/typeahead.js"></script>
-<script src="/front/js/card-payment.js"></script>
-<script src="/front/js/magnific.js"></script>
-<script src="/front/js/owl-carousel.js"></script>
-<script src="/front/js/fitvids.js"></script>
-<script src="/front/js/tweet.js"></script>
-<script src="/front/js/gridrotator.js"></script>
-<script src="/front/js/custom.js"></script>
+<script src="{{asset('/front/js/bootstrap.js')}}"></script>
+<script src="{{asset('/front/js/slimmenu.js')}}"></script>
+<script src="{{asset('/front/js/bootstrap-datepicker.js')}}"></script>
+<script src="{{asset('/front/js/bootstrap-timepicker.js')}}"></script>
+<script src="{{asset('/front/js/nicescroll.js')}}"></script>
+<script src="{{asset('/front/js/dropit.js')}}"></script>
+<script src="{{asset('/front/js/ionrangeslider.js')}}"></script>
+<script src="{{asset('/front/js/icheck.js')}}"></script>
+<script src="{{asset('/front/js/fotorama.js')}}"></script>
+<script src="{{asset('/front/js/typeahead.js')}}"></script>
+<script src="{{asset('/front/js/card-payment.js')}}"></script>
+<script src="{{asset('/front/js/magnific.js')}}"></script>
+<script src="{{asset('/front/js/owl-carousel.js')}}"></script>
+<script src="{{asset('/front/js/fitvids.js')}}"></script>
+<script src="{{asset('/front/js/tweet.js')}}"></script>
+<script src="{{asset('/front/js/gridrotator.js')}}"></script>
+<script src="{{asset('/front/js/custom.js')}}"></script>
 </div>
 @endsection

@@ -3,19 +3,19 @@
 @section('title', 'LaraTravel')
 
 @section('content')
-@include('layouts._flash')
-  <div class="container">
+  <div class="container-fluid spark-screen">
+  @include('layouts._flash')
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb">
           <li><a href="{{ url('/home') }}">Dashboard</a></li>
           <li class="active">Change Password</li>
         </ul>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">Change Password</h2>
+        <div class="box">
+          <div class="box-header with-border">
+            <h2 class="box-title">Change Password</h2>
           </div>
-          <div class="panel-body">
+          <div class="box-body">
 
             {!! Form::open(['url' => url('/admin/settings/password'),'method' => 'post', 'class'=>'form-horizontal']) !!}
 

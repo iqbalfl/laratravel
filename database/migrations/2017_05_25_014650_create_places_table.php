@@ -17,6 +17,7 @@ class CreatePlacesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
+            $table->string('image')->nullable();
             $table->integer('category_id')->unsigned();
             $table->char('province_id',2);
             $table->char('regency_id',4);

@@ -21,8 +21,8 @@ class CreateTransactionsTable extends Migration
             $table->integer('total_participants');
             $table->date('start_date');
             $table->date('end_date');
-            $table->decimal('total_cost',12,2);
-            $table->integer('admin_id')->unsigned()->nullable();
+            $table->decimal('total_cost',12,2)->nullable();
+            $table->integer('admin_id')->unsigned()->default(1);
             $table->string('status')->default('pending');
             $table->timestamps();
 

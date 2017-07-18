@@ -3,19 +3,19 @@
 @section('title', 'LaraTravel')
 
 @section('content')
-@include('layouts._flash')
-  <div class="container">
+  <div class="container-fluid spark-screen">
+  @include('layouts._flash')
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb">
           <li><a href="{{ url('/home') }}">Dashboard</a></li>
           <li class="active">My Profile</li>
         </ul>
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h2 class="panel-title">My Profile</h2>
+        <div class="box">
+          <div class="box-header with-border">
+            <h2 class="box-title">My Profile</h2>
           </div>
-          <div class="panel-body">
+          <div class="box-body">
 
           {!! Form::model($user, ['url' => url('/admin/settings/'),'method'=>'post', 'class'=>'form-horizontal']) !!}
               <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">

@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//route landing page
+Route::get('/', 'LandingPageController@welcome');
+Route::get('place/view/{id}', 'LandingPageController@placeview');
 
 Auth::routes();
 

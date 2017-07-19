@@ -38,7 +38,9 @@
                     @foreach($places as $key => $place)
                       <tr>
                         <td>{{ ++$key }}</td>
-                        <td>{{ $place->name }}</td>
+                        <td>
+                        <a href="{{ url('place/view',$place->id) }}">{{ $place->name }}</a>
+                        </td>
                         <td>{{ $place->description }}</td>
                         <td>{{ $place->category->name }}</td>
                         <td>{{ $place->cost }}</td>

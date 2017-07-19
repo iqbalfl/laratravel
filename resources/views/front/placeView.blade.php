@@ -47,6 +47,9 @@
             <p>
               IDR {{$place->cost}}
             </p>
+
+            <hr  />
+            <a href="{{ url('member/orders/dest',$place->id) }}" class="btn btn-primary btn-lg">Pesan Sekarang</a></td>
           </div>
 
         </div>

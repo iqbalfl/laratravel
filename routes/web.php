@@ -14,6 +14,9 @@
 //route landing page
 Route::get('/', 'LandingPageController@welcome');
 Route::get('place/view/{id}', 'LandingPageController@placeview');
+Route::get('/about', function () {
+    return view('about');
+});
 
 Auth::routes();
 

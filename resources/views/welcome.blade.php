@@ -232,11 +232,7 @@
             </div>
             <div class="col-md-2">
                 <ul class="list list-footer">
-                    <li><a href="#">About US</a>
-                    </li>
-                    <li><a href="#">Press Centre</a>
-                    </li>
-                    <li><a href="#">Best Price Guarantee</a>
+                    <li><a href="{{ url('/about') }}">About US</a>
                     </li>
                     <li><a href="#">Travel News</a>
                     </li>

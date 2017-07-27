@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'title' => 'LaraTravel',
+    'title' => 'BandungTranService',
 
     'title_prefix' => '',
 
@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Lara</b>Travel',
+    'logo' => '<b>Bdg</b>TranService',
 
-    'logo_mini' => '<b>L</b>T',
+    'logo_mini' => '<b>B</b>TS',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,9 +161,15 @@ return [
                 ],
             ],
         ],
+        'MEMBERS MANAGEMENT',
+        [
+            'text' => 'Manage Members',
+            'url'  => 'admin/members',
+            'icon' => 'users',
+        ],
         'ACCOUNT SETTINGS',
         [
-            'text' => 'Profile',
+            'text' => 'My Profile',
             'url'  => 'admin/settings',
             'icon' => 'user',
         ],
@@ -171,12 +177,6 @@ return [
             'text' => 'Change Password',
             'url'  => 'admin/settings/password',
             'icon' => 'lock',
-        ],
-        'Other',
-        [
-            'text' => 'About',
-            'url'  => '#',
-            'icon' => 'info',
         ],
     ],
 

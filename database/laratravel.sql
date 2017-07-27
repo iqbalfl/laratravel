@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 18 Jul 2017 pada 06.29
+-- Generation Time: 27 Jul 2017 pada 12.48
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 7.1.2
 
@@ -112,6 +112,7 @@ CREATE TABLE `confirmations` (
   `payment_method` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `info` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `paid_total` decimal(12,2) NOT NULL,
+  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -121,9 +122,10 @@ CREATE TABLE `confirmations` (
 -- Dumping data untuk tabel `confirmations`
 --
 
-INSERT INTO `confirmations` (`id`, `transaction_id`, `payment_method`, `info`, `paid_total`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Cash', 'Cash', '2900000.00', 'pending', '2017-07-07 09:06:09', '2017-07-07 09:06:09'),
-(6, 2, 'Transfer', 'BCA', '2900000.00', 'pending', '2017-07-09 22:29:25', '2017-07-09 22:29:25');
+INSERT INTO `confirmations` (`id`, `transaction_id`, `payment_method`, `info`, `paid_total`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 1, 'Transfer', 'Mandiri', '2900000.00', NULL, 'pending', '2017-07-07 09:06:09', '2017-07-26 21:48:54'),
+(8, 2, 'Transfer', 'BCA', '900000.00', NULL, 'pending', '2017-07-26 21:19:47', '2017-07-26 21:19:47'),
+(11, 3, 'Transfer', 'Mandiri', '900000.00', '2402fcc9d8be90eca03864bdf618cf37.png', 'pending', '2017-07-27 00:47:44', '2017-07-27 01:24:15');
 
 -- --------------------------------------------------------
 
@@ -7982,7 +7984,13 @@ INSERT INTO `role_user` (`user_id`, `role_id`, `user_type`) VALUES
 (1, 1, 'App\\User'),
 (2, 2, 'App\\User'),
 (3, 2, 'App\\User'),
-(4, 2, 'App\\User');
+(4, 2, 'App\\User'),
+(5, 2, 'App\\User'),
+(6, 2, 'App\\User'),
+(7, 2, 'App\\User'),
+(8, 2, 'App\\User'),
+(9, 2, 'App\\User'),
+(10, 2, 'App\\User');
 
 -- --------------------------------------------------------
 
@@ -7992,6 +8000,7 @@ INSERT INTO `role_user` (`user_id`, `role_id`, `user_type`) VALUES
 
 CREATE TABLE `transactions` (
   `id` int(10) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `user_id` int(10) UNSIGNED NOT NULL,
   `place_id` int(10) UNSIGNED NOT NULL,
   `car_id` int(10) UNSIGNED NOT NULL,
@@ -8009,9 +8018,10 @@ CREATE TABLE `transactions` (
 -- Dumping data untuk tabel `transactions`
 --
 
-INSERT INTO `transactions` (`id`, `user_id`, `place_id`, `car_id`, `total_participants`, `start_date`, `end_date`, `total_cost`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
-(1, 2, 6, 3, 5, '2017-07-08', '2017-07-10', '2900000.00', 1, 'pending', '2017-07-07 09:05:37', '2017-07-07 09:05:58'),
-(2, 4, 6, 3, 6, '2017-07-11', '2017-07-12', '2900000.00', 1, 'pending', '2017-07-09 22:29:13', '2017-07-09 22:29:15');
+INSERT INTO `transactions` (`id`, `code`, `user_id`, `place_id`, `car_id`, `total_participants`, `start_date`, `end_date`, `total_cost`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
+(1, '4QKNCJ', 2, 6, 3, 5, '2017-07-08', '2017-07-10', '2900000.00', 1, 'pending', '2017-07-07 09:05:37', '2017-07-07 09:05:58'),
+(2, 'Q48QGH', 4, 9, 8, 7, '2017-07-27', '2017-07-28', '900000.00', 1, 'confirmed', '2017-07-26 21:14:34', '2017-07-27 00:16:27'),
+(3, '4RH786', 7, 9, 8, 5, '2017-07-27', '2017-07-28', '900000.00', 1, 'pending', '2017-07-27 00:47:28', '2017-07-27 00:47:31');
 
 -- --------------------------------------------------------
 
@@ -8026,6 +8036,8 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mobile_phone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_verified` tinyint(1) NOT NULL DEFAULT '0',
   `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -8035,10 +8047,11 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `username`, `email`, `mobile_phone`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin LaraTravel', 'admin', 'admin@gmail.com', '082214508909', '$2y$10$3x5T69Tx0kXTdPlgx1ir8e9l5YKChPmrlKmLzSXcTbPMtml.VtAdO', '5NJdixNBolJ7BSK3WnnzKr4gq8J3OEj2EonKYyWRTWpoREf0cjVooJNWa6gj', '2017-05-24 18:01:20', '2017-06-17 03:04:17'),
-(2, 'Melody', 'member', 'member@gmail.com', '082214508201', '$2y$10$962KuHgyUObs2.hnBQ2VxOUHyr.mLzXHt1wm14af2mcYRaTo6Qvce', '5uKuxlW49Zh9gkyncHwKIH8LxSVzNvGLNBSmhSjswXLtOu3MkQag4tAbpFjQ', '2017-05-24 18:01:20', '2017-06-17 03:33:02'),
-(4, 'Nabilah Ratna Ayu', 'nabilah', 'nabilah@gmail.com', '08978676798798', '$2y$10$j5amkJ5JWpKW3CE5avTM7.sY8OpIK02CUvYLSxZjGOqwRuwuJMiKi', 'NBmUFcJyUdaTvjpc5kWMBxpMkvtRPh82cHC7SIM7c4Ic7StJNxQCXW81LAwW', '2017-07-09 18:01:31', '2017-07-09 18:01:31');
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `mobile_phone`, `password`, `verification_token`, `is_verified`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Admin LaraTravel', 'admin', 'admin@gmail.com', '082214508909', '$2y$10$3x5T69Tx0kXTdPlgx1ir8e9l5YKChPmrlKmLzSXcTbPMtml.VtAdO', NULL, 1, 'kXTlqr7NKFiV91Lz9jLJaCMQNyBCFwWyC0MWTmRBAoGofr47gmy8gaHFlUjc', '2017-05-24 18:01:20', '2017-06-17 03:04:17'),
+(2, 'Melody Nuramdani', 'melody', 'member@gmail.com', '082214508201', '$2y$10$962KuHgyUObs2.hnBQ2VxOUHyr.mLzXHt1wm14af2mcYRaTo6Qvce', NULL, 1, 'HnVrp5vNXmDhHIBuRell6tKJMFudZmZmOzmMuPeVooq9WFSSf0TH1cBplGRp', '2017-05-24 18:01:20', '2017-07-26 08:47:13'),
+(4, 'Nabilah Ratna Ayu', 'nabilah', 'nabilah@gmail.com', '08978676798798', '$2y$10$j5amkJ5JWpKW3CE5avTM7.sY8OpIK02CUvYLSxZjGOqwRuwuJMiKi', NULL, 1, '5UzSqWEXMvdPtiCjA3hqdFo6eA8nntbah6CQkvGCkxTEVqEaKJjzjef3vIvQ', '2017-07-09 18:01:31', '2017-07-09 18:01:31'),
+(7, 'Muhamad Iqbal', 'iqbal', 'muhamad.iqbal46@gmail.com', '089692825280', '$2y$10$NDiHuPrvg4mpuZzDOj9pF.D8M5DK2.w7476GKSXDiom70fImcFnTi', NULL, 1, 'fYWhm6mm2meQkiMtFba3dfypNsRhRDuhq5o8CRdWrUpzURTGQZzH5sStwlh0', '2017-07-26 08:00:13', '2017-07-26 08:09:28');
 
 -- --------------------------------------------------------
 
@@ -90320,7 +90333,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `confirmations`
 --
 ALTER TABLE `confirmations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -90345,12 +90358,12 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --

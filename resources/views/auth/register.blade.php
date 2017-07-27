@@ -20,7 +20,7 @@
 
                 <div class="form-group has-feedback {{ $errors->has('name') ? 'has-error' : '' }}">
                     <input type="text" name="name" class="form-control" value="{{ old('name') }}"
-                           placeholder="{{ trans('adminlte::adminlte.full_name') }}">
+                           placeholder="{{ trans('adminlte::adminlte.full_name') }}" autofocus>
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
                     @if ($errors->has('name'))
                         <span class="help-block">
@@ -31,7 +31,7 @@
 
                 <div class="form-group has-feedback {{ $errors->has('username') ? ' has-error' : '' }}">
                    <input type="text" class="form-control" name="username" value="{{ old('username') }}"
-                    placeholder="Username" required autofocus>
+                    placeholder="Username" required>
                     <span class="glyphicon glyphicon-asterisk form-control-feedback"></span>
                    @if ($errors->has('username'))
                        <span class="help-block">
@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group has-feedback {{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
                    <input type="number" class="form-control" name="mobile_phone" value="{{ old('mobile_phone') }}"
-                    placeholder="Mobile Phone" required autofocus>
+                    placeholder="Mobile Phone" required>
                     <span class="glyphicon glyphicon-phone form-control-feedback"></span>
                    @if ($errors->has('mobile_phone'))
                        <span class="help-block">
@@ -80,9 +80,13 @@
                         </span>
                     @endif
                 </div>
-                <button type="submit"
-                        class="btn btn-primary btn-block btn-flat"
-                >{{ trans('adminlte::adminlte.register') }}</button>
+
+                <div class="form-group{{ $errors->has('g-recaptcha-response') ? ' has-error' : '' }}">
+                    {!! app('captcha')->display() !!}
+                    {!! $errors->first('g-recaptcha-response', '<p class="help-block">:message</p>') !!}
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block btn-flat">Register</button>
             </form>
             <div class="auth-links">
                 <a href="{{ url(config('adminlte.login_url', 'login')) }}"

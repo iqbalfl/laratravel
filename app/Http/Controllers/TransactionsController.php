@@ -8,6 +8,8 @@ use DB;
 use App\Transaction;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Html\Builder;
+use Auth;
+use Excel;
 
 class TransactionsController extends Controller
 {
@@ -27,12 +29,13 @@ class TransactionsController extends Controller
                  'form_url' => route('transactions.destroy', $transaction->id),
                  'edit_url' => route('transactions.edit', $transaction->id),
                  'conf_url' => route('transactions.show', $transaction->id),
-                 'confirm_message' => 'Yakin mau menghapus transaksi id->' . $transaction->id . '?'
+                 'confirm_message' => 'Yakin mau menghapus transaksi' . $transaction->code . '?'
                ]);
              })->make(true);
            }
 
            $html = $htmlBuilder
+             ->addColumn(['data' => 'code', 'name'=>'code', 'title'=>'Kode Transaksi'])
              ->addColumn(['data' => 'user.name', 'name'=>'user.name', 'title'=>'Nama Pelanggan'])
              ->addColumn(['data' => 'place.name', 'name'=>'place.name', 'title'=>'Tujuan'])
              ->addColumn(['data' => 'car.name', 'name'=>'car.name', 'title'=>'Merk mobil'])
@@ -54,7 +57,7 @@ class TransactionsController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -139,5 +142,61 @@ class TransactionsController extends Controller
       ]);
 
       return redirect()->route('transactions.index');
+    }
+
+    public function export()
+    {
+      return view('transactions.export');
+    }
+
+    public function exportPost(Request $request)
+    {
+      // validasi
+      $this->validate($request, [
+        'month'=>'required',
+      ], [
+        'month.required'=>'Anda belum memilih bulan. Pilih bulan terlebih dahulu!'
+      ]);
+
+      $transactions = Transaction::with('user','place','car','admin')
+                      ->whereMonth('created_at', $request->get('month'))
+                      ->orderBy('status', 'asc')
+                      ->get();
+
+      Excel::create('Laporan Transaksi Bulanan bdgtranservice', function($excel) use ($transactions) {
+
+        // Set property
+        $excel->setTitle('Laporan Transaksi Bulanan bdgtranservice')
+        ->setCreator(Auth::user()->name);
+        $excel->sheet('Laporan Transaksi', function($sheet) use ($transactions) {
+          $row = 1;
+          $sheet->row($row, [
+            'Kode Transaksi',
+            'Nama Pelanggan',
+            'Tujuan',
+            'Merk Mobil',
+            'Jumlah Orang',
+            'Tangga Pergi',
+            'Tanggal Kembali',
+            'Total Harga',
+            'Admin',
+            'Status'
+          ]);
+          foreach ($transactions as $transaction) {
+            $sheet->row(++$row, [
+              $transaction->code,
+              $transaction->user->name,
+              $transaction->place->name,
+              $transaction->car->name,
+              $transaction->total_participants,
+              $transaction->start_date,
+              $transaction->end_date,
+              $transaction->total_cost,
+              $transaction->admin->name,
+              $transaction->status
+            ]);
+          }
+        });
+      })->export('xls');
     }
 }

@@ -24,7 +24,7 @@ class UsersSeeder extends Seeder
 		$memberRole->name = "member";
 		$memberRole->display_name = "Member";
 		$memberRole->save();
-		
+
 		// Membuat sample admin
 		$admin = new User();
 		$admin->name = 'Admin LaraTravel';
@@ -32,9 +32,10 @@ class UsersSeeder extends Seeder
 		$admin->email = 'admin@gmail.com';
 		$admin->mobile_phone = '082214508909';
 		$admin->password = bcrypt('rahasia');
+    $admin->is_verified = 1;
 		$admin->save();
 		$admin->attachRole($adminRole);
-		
+
 		// Membuat sample member
 		$member = new User();
 		$member->name = "Sample Member";
@@ -42,6 +43,7 @@ class UsersSeeder extends Seeder
 		$member->email = 'member@gmail.com';
 		$member->mobile_phone = '082214508202';
 		$member->password = bcrypt('rahasia');
+    $member->is_verified = 1;
 		$member->save();
 		$member->attachRole($memberRole);
     }

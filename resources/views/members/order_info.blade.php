@@ -27,6 +27,12 @@
           <div class="panel-body">
             {!! Form::model($transaction, ['url' => route('orders.update', $transaction->id),'method'=>'put', 'class'=>'form-horizontal']) !!}
               <div class="form-group">
+                <label class="col-sm-3 control-label">Kode Transaksi</label>
+                <div class="col-sm-5">
+                  <input type="text" class="form-control" value="{{$transaction->code}}" readonly>
+                </div>
+              </div>
+              <div class="form-group">
                 <label class="col-sm-3 control-label">Pelanggan</label>
                 <div class="col-sm-5">
                   <input type="text" class="form-control" value="{{$transaction->user->name}}" readonly>
@@ -65,7 +71,7 @@
               <div class="form-group">
                 <label class="col-sm-3 control-label">Detail Harga</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" 
+                  <input type="text" class="form-control"
                   value="[Tempat = {{$transaction->place->cost}}] + [Mobil = {{$transaction->car->cost}}]" readonly>
                 </div>
               </div>
@@ -82,7 +88,7 @@
               </div>
               </div>
              {!! Form::close() !!}
-          
+
           </div>
         </div>
       </div>

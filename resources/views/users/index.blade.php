@@ -1,7 +1,5 @@
 @extends('adminlte::page')
 
-@section('title', 'LaraTravel')
-
 @section('content')
   <div class="container-fluid spark-screen">
   @include('layouts._flash')

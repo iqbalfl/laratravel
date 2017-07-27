@@ -1,8 +1,11 @@
-<div class="form-group{{ $errors->has('transaction_id') ? ' has-error' : '' }}">
-  {!! Form::label('name', 'Transaksi ID', ['class'=>'col-md-3 control-label']) !!}
+<!-- transaksi_id hidden -->
+{!! Form::hidden('transaction_id', $transaction->id, ['class'=>'form-control','readonly']) !!}
+
+<div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
+  <label class="col-sm-3 control-label">Kode Transaksi</label>
   <div class="col-sm-8">
-    {!! Form::number('transaction_id', $transaction->id, ['class'=>'form-control','readonly']) !!}
-    {!! $errors->first('transaction_id', '<p class="help-block">:message</p>') !!}
+    <input type="text" class="form-control" value="{{$transaction->code}}" readonly>
+    {!! $errors->first('code', '<p class="help-block">:message</p>') !!}
   </div>
 </div>
 

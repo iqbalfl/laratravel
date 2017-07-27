@@ -18,6 +18,10 @@ Route::get('/about', function () {
     return view('about');
 });
 
+//route verifikasi user
+Route::get('auth/verify/{token}', 'Auth\RegisterController@verify');
+Route::get('auth/send-verification', 'Auth\RegisterController@sendVerification');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -34,13 +38,26 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
   Route::resource('places', 'PlacesController');
   Route::resource('transactions', 'TransactionsController');
   Route::resource('confirmations', 'ConfirmationsController');
+  Route::resource('members', 'MembersDataController');
   /*
-  --route myprofil dan ubah *admin*
-  */
+   * route myprofil dan ubah *admin*
+   */
   Route::get('settings', 'SettingsController@profile');
   Route::post('settings', 'SettingsController@update');
   Route::get('settings/password', 'SettingsController@editPassword');
   Route::post('settings/password', 'SettingsController@updatePassword');
+  /*
+   *  export laporan
+   */
+  Route::get('export/transactions', [
+    'as' => 'export.transactions',
+    'uses' => 'TransactionsController@export'
+  ]);
+  Route::post('export/transactions', [
+    'as' => 'export.transactions.post',
+    'uses' => 'TransactionsController@exportPost'
+  ]);
+
 });
 
 Route::group(['prefix'=>'member', 'middleware'=>['auth', 'role:member']], function () {
@@ -49,6 +66,8 @@ Route::group(['prefix'=>'member', 'middleware'=>['auth', 'role:member']], functi
   Route::get('orders/dest/{id}', 'MemberOrdersController@orderdest');
   Route::get('orders/car/{id}', 'MemberOrdersController@ordercar');
   Route::get('orders/cetak/{id}', 'MemberOrdersController@cetak');
+  Route::get('orders/upconf/{id}', 'MemberOrdersController@upconf');
+  Route::post('orders/upconf/{id}', 'MemberOrdersController@storeupconf');
   /*
   --route myprofil dan ubah password *member*
   */

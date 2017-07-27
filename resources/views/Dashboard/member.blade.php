@@ -12,12 +12,13 @@
 </style>
 @section('content')
 <div class="container">
+  @include('layouts._flash')
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">Dashboard</div>
                   <div class="panel-body">
-                    Selamat Datang di LaraTravel.
+                    Selamat Datang di BandungTranService.
                   </div>
             </div>
         </div>

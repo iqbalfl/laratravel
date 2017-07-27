@@ -198,7 +198,7 @@
         <div class="row row-wrap">
             <div class="col-md-3">
                 <a class="logo" href="{{url('/')}}">
-                    <img src="{{asset('/front/img/logo-invert.png')}}" alt="Image Alternative text" title="LaraTravel.co.id" />
+                    <img src="{{asset('/front/img/logo.png')}}" alt="Image Alternative text" title="bdgtranservice.co.id" />
                 </a>
                 <p class="mb20">Booking, reviews and advices on hotels, resorts, flights, vacation rentals, travel packages, and lots more!</p>
                 <ul class="list list-horizontal list-space">
@@ -249,7 +249,7 @@
             <div class="col-md-4">
                 <h4>Have Questions?</h4>
                 <h4 class="text-color">+1-202-555-0173</h4>
-                <h4><a href="#" class="text-color">support@laratravel.co.id</a></h4>
+                <h4><a href="#" class="text-color">support@bdgtranservice.co.id</a></h4>
                 <p>24/7 Dedicated Customer Support</p>
             </div>
 

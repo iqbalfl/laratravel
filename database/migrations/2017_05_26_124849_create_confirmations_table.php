@@ -19,6 +19,7 @@ class CreateConfirmationsTable extends Migration
              $table->string('payment_method');
              $table->string('info');
              $table->decimal('paid_total',12,2);
+             $table->string('image')->nullable();
              $table->string('status')->default('pending');
              $table->timestamps();
 

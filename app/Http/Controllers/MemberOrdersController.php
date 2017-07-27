@@ -10,7 +10,7 @@ use App\Transaction;
 use App\Confirmation;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Html\Builder;
-
+use Illuminate\Support\Facades\Mail;
 
 class MemberOrdersController extends Controller
 {
@@ -21,7 +21,7 @@ class MemberOrdersController extends Controller
      */
     public function index(Request $request, Builder $htmlBuilder)
        {
-        //ambil id user dari session 
+        //ambil id user dari session
         $auth = Auth::user()->id;
 
          if ($request->ajax()) {
@@ -30,11 +30,13 @@ class MemberOrdersController extends Controller
              ->addColumn('action', function($transaction){
                return view('datatable._action_print', [
               'cetak_url' => url('/member/orders/cetak', $transaction->id),
+              'conf_url' => url('/member/orders/upconf', $transaction->id),
              ]);
              })->make(true);
            }
 
            $html = $htmlBuilder
+             ->addColumn(['data' => 'code', 'name'=>'code', 'title'=>'Kode Transaksi'])
              ->addColumn(['data' => 'user.name', 'name'=>'user.name', 'title'=>'Nama Pelanggan'])
              ->addColumn(['data' => 'place.name', 'name'=>'place.name', 'title'=>'Tujuan'])
              ->addColumn(['data' => 'car.name', 'name'=>'car.name', 'title'=>'Merk mobil'])
@@ -71,7 +73,7 @@ class MemberOrdersController extends Controller
         'user_id' => 'required',
         'place_id' => 'required',
         'car_id' => 'required',
-        'total_participants' => 'required|numeric',
+        'total_participants' => 'required|numeric|min:4|max:8',
         'start_date' => 'required',
         'end_date' => 'required'
       ]);
@@ -79,9 +81,13 @@ class MemberOrdersController extends Controller
       //ambil id terbesar dari transaksi
       $max = DB::table('transactions')->max('id');
 
+      //generate kode unik
+      $code = Transaction::generateCode();
+
       //store manual ke databse
       $transaction = new Transaction();
       $transaction->id = $max+1;
+      $transaction->code = $code;
       $transaction->user_id = $request->user_id;
       $transaction->place_id = $request->place_id;
       $transaction->car_id = $request->car_id;
@@ -140,6 +146,11 @@ class MemberOrdersController extends Controller
         $transaction->total_cost = $total_cost;
         $transaction->save();
 
+        Mail::send('members.email_verification', compact('transaction'), function ($message) use ($transaction) {
+          $message->to($transaction->user->email, $transaction->user->name)
+                  ->subject('Order Info');
+        });
+
         Session::flash("flash_notification", [
         "level"=>"success",
         "message"=>"Transaksi Berhasil"
@@ -168,12 +179,12 @@ class MemberOrdersController extends Controller
         'info' => 'required',
         'paid_total' => 'required|numeric',
         ]);
-        
+
         $confirmation = Confirmation::create($request->all());
 
         Session::flash("flash_notification", [
             "level"=>"success",
-            "message"=>"Konfirmasi pembayaran berhasil"
+            "message"=>"Transaksi berhasil, segera lakukan konfirmasi"
         ]);
 
         return redirect()->route('orders.index');
@@ -193,12 +204,70 @@ class MemberOrdersController extends Controller
         return view('members.orders.order-car')->with(compact('car'));
     }
 
+    //cetak invoice
     public function cetak($id)
     {
         $transaction = Transaction::with('user','place','car')->find($id);
         $confirmation = DB::table('confirmations')
         ->where('transaction_id','=', $id)->get();
         return view('members.cetak')->with(compact('transaction','confirmation'));
+    }
+
+    //view unggah bukti pembayaran
+    public function upconf($id)
+    {
+        $transaction = Transaction::with('user','place','car')->find($id);
+        $confirmation = DB::table('confirmations')
+        ->where('transaction_id','=', $id)->get();
+        return view('members.up_bukti')->with(compact('transaction','confirmation'));
+    }
+
+    //store unggah bukti pembayaran
+    public function storeupconf(Request $request, $id)
+    {
+      $this->validate($request, [
+      'transaction_id' => 'required',
+      'payment_method' => 'required',
+      'info' => 'required',
+      'paid_total' => 'required|numeric',
+      'image' => 'image|max:2048',
+      ]);
+
+      $confirmation = Confirmation::find($id);
+      $confirmation->update($request->all());
+
+      if ($request->hasFile('image')) {
+        // menambil image yang diupload berikut ekstensinya
+        $filename = null;
+        $uploaded_image = $request->file('image');
+        $extension = $uploaded_image->getClientOriginalExtension();
+        // membuat nama file random dengan extension
+        $filename = md5(time()) . '.' . $extension;
+        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+        // memindahkan file ke folder public/img
+        $uploaded_image->move($destinationPath, $filename);
+        // hapus image lama, jika ada
+        if ($confirmation->image) {
+          $old_image = $confirmation->image;
+          $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+          . DIRECTORY_SEPARATOR . $confirmation->image;
+          try {
+            File::delete($filepath);
+          } catch (FileNotFoundException $e) {
+            // File sudah dihapus/tidak ada
+          }
+        }
+        // ganti field image dengan image yang baru
+        $confirmation->image = $filename;
+        $confirmation->save();
+      }
+
+      Session::flash("flash_notification", [
+          "level"=>"success",
+          "message"=>"Unggah bukti pembayaran berhasil"
+      ]);
+
+      return redirect()->route('orders.index');
     }
 
 }

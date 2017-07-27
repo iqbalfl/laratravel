@@ -7,17 +7,14 @@
       <div class="col-md-12">
         <ul class="breadcrumb">
           <li><a href="{{ url('/home') }}">Dashboard</a></li>
-          <li class="active">Transaction</li>
+          <li class="active">Members</li>
         </ul>
         <div class="box">
           <div class="box-header with-border">
-            <h2 class="box-title">Transaction</h2>
+            <h2 class="box-title">Members</h2>
           </div>
           <div class="box-body">
-            <p>
-              <a class="btn btn-primary" href="{{ url('/admin/export/transactions') }}"><i class="fa fa-download"></i>
-                Export Transactions Report</a>
-            </p>
+            <p> <a class="btn btn-primary" href="{{ url('/admin/members/create') }}">Tambah</a> </p>
             {!! $html->table(['class'=>'table-striped']) !!}
           </div>
         </div>

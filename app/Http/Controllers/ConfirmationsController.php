@@ -31,7 +31,7 @@ class ConfirmationsController extends Controller
            }
 
            $html = $htmlBuilder
-             ->addColumn(['data' => 'transaction_id', 'name'=>'transaction_id', 'title'=>'Transaksi ID'])
+             ->addColumn(['data' => 'transaction.code', 'name'=>'transaction.code', 'title'=>'Kode Transaksi'])
              ->addColumn(['data' => 'payment_method', 'name'=>'payment_method', 'title'=>'Jenis Pembayaran'])
              ->addColumn(['data' => 'info', 'name'=>'info', 'title'=>'Keterangan'])
              ->addColumn(['data' => 'paid_total', 'name'=>'paid_total', 'title'=>'Total Dibayar'])

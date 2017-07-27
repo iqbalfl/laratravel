@@ -1,8 +1,11 @@
-<div class="form-group{{ $errors->has('transaction_id') ? ' has-error' : '' }}">
-  {!! Form::label('name', 'Transaksi ID', ['class'=>'col-md-2 control-label']) !!}
-  <div class="col-md-4">
-    {!! Form::number('transaction_id', null, ['class'=>'form-control','readonly']) !!}
-    {!! $errors->first('transaction_id', '<p class="help-block">:message</p>') !!}
+<!-- transaksi_id hidden -->
+{!! Form::hidden('transaction_id', null , ['class'=>'form-control','readonly']) !!}
+
+<div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
+  <label class="col-sm-2 control-label">Kode Transaksi</label>
+  <div class="col-sm-4">
+    <input type="text" class="form-control" value="{{$confirmation->transaction->code}}" readonly>
+    {!! $errors->first('code', '<p class="help-block">:message</p>') !!}
   </div>
 </div>
 
@@ -40,6 +43,18 @@
   <div class="col-md-4">
     {!! Form::number('paid_total', null, ['class'=>'form-control']) !!}
     {!! $errors->first('paid_total', '<p class="help-block">:message</p>') !!}
+  </div>
+</div>
+
+<div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+  {!! Form::label('name', 'Bukti Transfer', ['class'=>'col-md-2 control-label']) !!}
+  <div class="col-md-4">
+    @if (isset($confirmation) && $confirmation->image)
+     <p> {!! Html::image(asset('img/'.$confirmation->image), null, ['class'=>'img-rounded img-responsive']) !!} </p>
+    @else
+      {!! Form::text('null', 'User belum mengunggah bukti transfer', ['class'=>'form-control','readonly']) !!}
+    @endif
+    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
   </div>
 </div>
 

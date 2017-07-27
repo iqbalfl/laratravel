@@ -1,3 +1,11 @@
+<div class="form-group{{ $errors->has('code') ? ' has-error' : '' }}">
+  <label class="col-md-2 control-label">Kode Transaksi</label>
+  <div class="col-md-4">
+    <input type="text" class="form-control" value="{{$transaction->code}}" readonly>
+    {!! $errors->first('code', '<p class="help-block">:message</p>') !!}
+  </div>
+</div>
+
 <div class="form-group {!! $errors->has('user_id') ? 'has-error' : '' !!}">
   {!! Form::label('user_id', 'Nama Pelanggan', ['class'=>'col-md-2 control-label']) !!}
   <div class="col-md-4">

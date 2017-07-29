@@ -12,6 +12,7 @@
 </style>
 @section('content')
   <div class="container">
+    @include('layouts._flash')
     <div class="row">
       <div class="col-md-12">
         <ul class="breadcrumb">

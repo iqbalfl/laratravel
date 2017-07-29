@@ -11,6 +11,7 @@ use App\Confirmation;
 use Yajra\Datatables\Datatables;
 use Yajra\Datatables\Html\Builder;
 use Illuminate\Support\Facades\Mail;
+use App\Exceptions\CarException;
 
 class MemberOrdersController extends Controller
 {
@@ -68,7 +69,7 @@ class MemberOrdersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validasi
         $this->validate($request, [
         'user_id' => 'required',
         'place_id' => 'required',
@@ -78,28 +79,49 @@ class MemberOrdersController extends Controller
         'end_date' => 'required'
       ]);
 
-      //ambil id terbesar dari transaksi
-      $max = DB::table('transactions')->max('id');
+      try {
+        //ambil id terbesar dari transaksi
+        $max = DB::table('transactions')->max('id');
+        //generate kode unik
+        $code = Transaction::generateCode();
 
-      //generate kode unik
-      $code = Transaction::generateCode();
+        //cek pesanan dan mobil pada tanggal pesan
+        $cek = Transaction::with('car')
+                ->whereDate('start_date', $request->get('start_date'))
+                ->where('car_id', $request->get('car_id'))
+        	      ->first();
 
-      //store manual ke databse
-      $transaction = new Transaction();
-      $transaction->id = $max+1;
-      $transaction->code = $code;
-      $transaction->user_id = $request->user_id;
-      $transaction->place_id = $request->place_id;
-      $transaction->car_id = $request->car_id;
-      $transaction->total_participants = $request->total_participants;
-      $transaction->start_date = $request->start_date;
-      $transaction->end_date = $request->end_date;
-      $transaction->save();
+        //cek apakah mobil sudah ada yg booking
+        if (isset($cek)){
+            if ($cek->car_id == $request->get('car_id')) {
+              throw new CarException("Maaf mobil yg anda pilih pada tgl tersebut sudah ada yang pesan.Silahkan pilih mobil yang lainnya.");
+            }
+        }
 
-      Session::flash("flash_notification", [
-        "level"=>"success",
-        "message"=>"Transaksi Berhasil"
-      ]);
+          //store manual ke databse
+          $transaction = new Transaction();
+          $transaction->id = $max+1;
+          $transaction->code = $code;
+          $transaction->user_id = $request->user_id;
+          $transaction->place_id = $request->place_id;
+          $transaction->car_id = $request->car_id;
+          $transaction->total_participants = $request->total_participants;
+          $transaction->start_date = $request->start_date;
+          $transaction->end_date = $request->end_date;
+          $transaction->save();
+
+          Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Transaksi Berhasil"
+          ]);
+
+      } catch (CarException $e) {
+        Session::flash("flash_notification", [
+          "level" => "warning",
+          "message" => $e->getMessage()
+        ]);
+        return redirect()->back();
+      }
 
       return redirect()->route('orders.show',$max+1);
     }

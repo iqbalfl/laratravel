@@ -4,6 +4,6 @@ namespace App\Exceptions;
 
 use Exception;
 
-class BookException extends Exception {
-  
+class CarException extends Exception {
+
 }

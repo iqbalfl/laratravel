@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Session;
 use DB;
 use App\Transaction;
@@ -29,7 +30,7 @@ class TransactionsController extends Controller
                  'form_url' => route('transactions.destroy', $transaction->id),
                  'edit_url' => route('transactions.edit', $transaction->id),
                  'conf_url' => route('transactions.show', $transaction->id),
-                 'confirm_message' => 'Yakin mau menghapus transaksi' . $transaction->code . '?'
+                 'confirm_message' => 'Yakin mau menghapus transaksi ' . $transaction->code . '?'
                ]);
              })->make(true);
            }
@@ -57,7 +58,7 @@ class TransactionsController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -134,7 +135,20 @@ class TransactionsController extends Controller
      */
     public function destroy($id)
     {
-      Transaction::destroy($id);
+      $transaction = Transaction::find($id);
+
+      // hapus image lama, jika ada
+      if ($transaction->confirmation->image) {
+        $old_image = $transaction->confirmation->image;
+        $filepath = public_path() . DIRECTORY_SEPARATOR . 'img'
+        . DIRECTORY_SEPARATOR . $transaction->confirmation->image;
+        try {
+          File::delete($filepath);
+        } catch (FileNotFoundException $e) {
+          // File sudah dihapus/tidak ada
+        }
+      }
+      $transaction->delete();
 
       Session::flash("flash_notification", [
         "level"=>"success",

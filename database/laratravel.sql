@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 27 Jul 2017 pada 12.48
+-- Generation Time: 29 Jul 2017 pada 04.04
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 7.1.2
 
@@ -125,7 +125,7 @@ CREATE TABLE `confirmations` (
 INSERT INTO `confirmations` (`id`, `transaction_id`, `payment_method`, `info`, `paid_total`, `image`, `status`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Transfer', 'Mandiri', '2900000.00', NULL, 'pending', '2017-07-07 09:06:09', '2017-07-26 21:48:54'),
 (8, 2, 'Transfer', 'BCA', '900000.00', NULL, 'pending', '2017-07-26 21:19:47', '2017-07-26 21:19:47'),
-(11, 3, 'Transfer', 'Mandiri', '900000.00', '2402fcc9d8be90eca03864bdf618cf37.png', 'pending', '2017-07-27 00:47:44', '2017-07-27 01:24:15');
+(13, 3, 'Transfer', 'Mandiri', '2300000.00', '188d98bc075991948469cbe66d7eb596.jpg', 'pending', '2017-07-28 19:02:56', '2017-07-28 19:03:45');
 
 -- --------------------------------------------------------
 
@@ -8021,7 +8021,7 @@ CREATE TABLE `transactions` (
 INSERT INTO `transactions` (`id`, `code`, `user_id`, `place_id`, `car_id`, `total_participants`, `start_date`, `end_date`, `total_cost`, `admin_id`, `status`, `created_at`, `updated_at`) VALUES
 (1, '4QKNCJ', 2, 6, 3, 5, '2017-07-08', '2017-07-10', '2900000.00', 1, 'pending', '2017-07-07 09:05:37', '2017-07-07 09:05:58'),
 (2, 'Q48QGH', 4, 9, 8, 7, '2017-07-27', '2017-07-28', '900000.00', 1, 'confirmed', '2017-07-26 21:14:34', '2017-07-27 00:16:27'),
-(3, '4RH786', 7, 9, 8, 5, '2017-07-27', '2017-07-28', '900000.00', 1, 'pending', '2017-07-27 00:47:28', '2017-07-27 00:47:31');
+(3, 'WOQ1TY', 7, 10, 6, 8, '2017-07-30', '2017-07-31', '2300000.00', 1, 'pending', '2017-07-28 19:02:40', '2017-07-28 19:02:43');
 
 -- --------------------------------------------------------
 
@@ -8048,10 +8048,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `username`, `email`, `mobile_phone`, `password`, `verification_token`, `is_verified`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Admin LaraTravel', 'admin', 'admin@gmail.com', '082214508909', '$2y$10$3x5T69Tx0kXTdPlgx1ir8e9l5YKChPmrlKmLzSXcTbPMtml.VtAdO', NULL, 1, 'kXTlqr7NKFiV91Lz9jLJaCMQNyBCFwWyC0MWTmRBAoGofr47gmy8gaHFlUjc', '2017-05-24 18:01:20', '2017-06-17 03:04:17'),
-(2, 'Melody Nuramdani', 'melody', 'member@gmail.com', '082214508201', '$2y$10$962KuHgyUObs2.hnBQ2VxOUHyr.mLzXHt1wm14af2mcYRaTo6Qvce', NULL, 1, 'HnVrp5vNXmDhHIBuRell6tKJMFudZmZmOzmMuPeVooq9WFSSf0TH1cBplGRp', '2017-05-24 18:01:20', '2017-07-26 08:47:13'),
+(1, 'Admin LaraTravel', 'admin', 'admin@gmail.com', '082214508909', '$2y$10$3x5T69Tx0kXTdPlgx1ir8e9l5YKChPmrlKmLzSXcTbPMtml.VtAdO', NULL, 1, 'aPK6hmHt1hIlUtKxKOBPyP6Lt1nrxj10nyTf78rMtpO1CQDxxPRdJFuMac1A', '2017-05-24 18:01:20', '2017-06-17 03:04:17'),
+(2, 'Melody Nuramdani', 'melody', 'member@gmail.com', '082214508201', '$2y$10$962KuHgyUObs2.hnBQ2VxOUHyr.mLzXHt1wm14af2mcYRaTo6Qvce', NULL, 1, 'Fusa71Xetzskazp5Ai2uzbZ1puTbT3d9BBVvGohiLogRbW6LG6jNkkpVPm49', '2017-05-24 18:01:20', '2017-07-26 08:47:13'),
 (4, 'Nabilah Ratna Ayu', 'nabilah', 'nabilah@gmail.com', '08978676798798', '$2y$10$j5amkJ5JWpKW3CE5avTM7.sY8OpIK02CUvYLSxZjGOqwRuwuJMiKi', NULL, 1, '5UzSqWEXMvdPtiCjA3hqdFo6eA8nntbah6CQkvGCkxTEVqEaKJjzjef3vIvQ', '2017-07-09 18:01:31', '2017-07-09 18:01:31'),
-(7, 'Muhamad Iqbal', 'iqbal', 'muhamad.iqbal46@gmail.com', '089692825280', '$2y$10$NDiHuPrvg4mpuZzDOj9pF.D8M5DK2.w7476GKSXDiom70fImcFnTi', NULL, 1, 'fYWhm6mm2meQkiMtFba3dfypNsRhRDuhq5o8CRdWrUpzURTGQZzH5sStwlh0', '2017-07-26 08:00:13', '2017-07-26 08:09:28');
+(7, 'Muhamad Iqbal', 'iqbal', 'muhamad.iqbal46@gmail.com', '089692825280', '$2y$10$NDiHuPrvg4mpuZzDOj9pF.D8M5DK2.w7476GKSXDiom70fImcFnTi', NULL, 1, 'xFhRMIWhmxTPQ8f9W4shAnVZOqfJRtr5qnNeDmwnjU8T7RdC8JD6c0juo7QR', '2017-07-26 08:00:13', '2017-07-26 08:09:28');
 
 -- --------------------------------------------------------
 
@@ -90333,7 +90333,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `confirmations`
 --
 ALTER TABLE `confirmations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `migrations`
 --
@@ -90358,7 +90358,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT for table `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `users`
 --

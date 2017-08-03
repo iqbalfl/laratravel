@@ -58,20 +58,6 @@
   </div>
 </div>
 
-<div class="form-group {!! $errors->has('status') ? 'has-error' : '' !!}">
-  {!! Form::label('name', 'Status', ['class'=>'col-md-3 control-label']) !!}
-  <div class="col-md-9">
-    {!! Form::select('status',[
-      'pending'=>'Pending',
-      'confirmed'=>'Confirmed',
-      'canceled' => 'Canceled'
-    ],$transaction->confirmation->status,[
-      'class'=>'form-control',
-      'placeholder' => 'Pilih Status']) !!}
-    {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
-  </div>
-</div>
-
 <div class="form-group">
   <div class="col-md-9 col-md-offset-2">
     {!! Form::submit('Simpan', ['class'=>'btn btn-primary']) !!}

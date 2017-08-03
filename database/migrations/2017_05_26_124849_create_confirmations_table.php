@@ -16,11 +16,10 @@ class CreateConfirmationsTable extends Migration
          Schema::create('confirmations', function (Blueprint $table) {
              $table->increments('id');
              $table->integer('transaction_id')->unsigned();
-             $table->string('payment_method');
-             $table->string('info');
-             $table->decimal('paid_total',12,2);
+             $table->string('payment_method')->nullable();
+             $table->string('info')->nullable();
+             $table->decimal('paid_total',12,2)->nullable();
              $table->string('image')->nullable();
-             $table->string('status')->default('pending');
              $table->timestamps();
 
              $table->foreign('transaction_id')->references('id')->on('transactions')

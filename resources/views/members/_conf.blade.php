@@ -53,6 +53,17 @@
   </div>
 </div>
 
+<div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+  {!! Form::label('name', 'Bukti Transfer', ['class'=>'col-md-3 control-label']) !!}
+  <div class="col-sm-8">
+    {!! Form::file('image') !!}
+    @if (isset($transaction->confirmation) && $transaction->confirmation->image)
+     <p> {!! Html::image(asset('img/'.$transaction->confirmation->image), null, ['class'=>'img-rounded img-responsive']) !!} </p>
+    @endif
+    {!! $errors->first('image', '<p class="help-block">:message</p>') !!}
+  </div>
+</div>
+
 <div class="form-group">
   <div class="col-sm-8 col-md-offset-2">
     {!! Form::submit('Simpan', ['class'=>'btn btn-primary']) !!}

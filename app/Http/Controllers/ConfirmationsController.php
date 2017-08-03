@@ -21,11 +21,9 @@ class ConfirmationsController extends Controller
            $confirmations = Confirmation::with('transaction')->get();
            return Datatables::of($confirmations)
              ->addColumn('action', function($confirmation){
-               return view('datatable._action', [
+               return view('datatable._action_edit', [
                  'model' => $confirmation,
-                 'form_url' => route('confirmations.destroy', $confirmation->id),
-                 'edit_url' => route('confirmations.edit', $confirmation->id),
-                 'confirm_message' => 'Yakin mau menghapus confirmation id->' . $confirmation->id . '?'
+                 'edit_url' => route('confirmations.edit', $confirmation->id)
                ]);
              })->make(true);
            }
@@ -35,7 +33,6 @@ class ConfirmationsController extends Controller
              ->addColumn(['data' => 'payment_method', 'name'=>'payment_method', 'title'=>'Jenis Pembayaran'])
              ->addColumn(['data' => 'info', 'name'=>'info', 'title'=>'Keterangan'])
              ->addColumn(['data' => 'paid_total', 'name'=>'paid_total', 'title'=>'Total Dibayar'])
-             ->addColumn(['data' => 'status', 'name'=>'status', 'title'=>'Status'])
              ->addColumn(['data' => 'action', 'name'=>'action', 'title'=>'', 'orderable'=>false, 'searchable'=>false]);
 
              return view('confirmations.index')->with(compact('html'));
@@ -98,8 +95,7 @@ class ConfirmationsController extends Controller
         'transaction_id' => 'required',
         'payment_method' => 'required',
         'info' => 'required',
-        'paid_total' => 'required|numeric',
-        'status' => 'required'
+        'paid_total' => 'required|numeric'
       ]);
 
       $confirmation = Confirmation::find($id);

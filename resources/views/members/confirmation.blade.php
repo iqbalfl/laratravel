@@ -16,9 +16,7 @@
       <div class="col-md-12">
         <ul class="breadcrumb">
           <li><a href="{{ url('/home') }}">Dashboard</a></li>
-          <li>My Transaction</li>
-          <li>New Order</li>
-          <li>Order Info</li>
+          <li><a href="{{ route('orders.index') }}">My Transaction</a></li>
           <li class="active">Confirmation</li>
         </ul>
         <div class="col-md-6">
@@ -27,13 +25,13 @@
             <h2 class="panel-title">Confirmation</h2>
           </div>
           <div class="panel-body">
-            {!! Form::open(['url' => url('/member/orders/confirmation'),'method' => 'post', 'class'=>'form-horizontal']) !!}
+          {!! Form::model($transaction->confirmation, ['url' => url('/member/orders/confirmation',$transaction->confirmation->id),'method' => 'post', 'files'=>'true', 'class'=>'form-horizontal']) !!}
             @include('members._conf')
             {!! Form::close() !!}
           </div>
           </div>
         </div>
-        
+
         <div class="col-md-6">
         <div class="panel panel-default">
           <div class="panel-heading">

@@ -62,12 +62,11 @@ Route::group(['prefix'=>'admin', 'middleware'=>['auth', 'role:admin']], function
 
 Route::group(['prefix'=>'member', 'middleware'=>['auth', 'role:member']], function () {
   Route::resource('orders', 'MemberOrdersController');
-  Route::post('orders/confirmation', 'MemberOrdersController@storeconf');
+  Route::get('orders/confirmation/{id}', 'MemberOrdersController@conf');
+  Route::post('orders/confirmation/{id}', 'MemberOrdersController@storeconf');
   Route::get('orders/dest/{id}', 'MemberOrdersController@orderdest');
   Route::get('orders/car/{id}', 'MemberOrdersController@ordercar');
   Route::get('orders/cetak/{id}', 'MemberOrdersController@cetak');
-  Route::get('orders/upconf/{id}', 'MemberOrdersController@upconf');
-  Route::post('orders/upconf/{id}', 'MemberOrdersController@storeupconf');
   /*
   --route myprofil dan ubah password *member*
   */

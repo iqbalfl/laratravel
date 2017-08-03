@@ -31,7 +31,7 @@ class MemberOrdersController extends Controller
              ->addColumn('action', function($transaction){
                return view('datatable._action_print', [
               'cetak_url' => url('/member/orders/cetak', $transaction->id),
-              'conf_url' => url('/member/orders/upconf', $transaction->id),
+              'conf_url' => url('/member/orders/confirmation', $transaction->id),
              ]);
              })->make(true);
            }
@@ -149,8 +149,7 @@ class MemberOrdersController extends Controller
      */
     public function edit($id)
     {
-        $transaction = Transaction::find($id);
-        return view('members.confirmation')->with(compact('transaction'));
+        //
     }
 
     /**
@@ -162,23 +161,35 @@ class MemberOrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //ambil data total harga dari form request
         $total_cost = $request->total_cost;
 
-        $transaction = Transaction::find($id);
+        //save total harga
+        $transaction = Transaction::with('user','place','car')->find($id); #select with - untuk data email
         $transaction->total_cost = $total_cost;
         $transaction->save();
 
+        //kirim email konfirmasi order
         Mail::send('members.email_verification', compact('transaction'), function ($message) use ($transaction) {
           $message->to($transaction->user->email, $transaction->user->name)
-                  ->subject('Order Info');
+                  ->subject('Konfirmasi Order');
         });
+
+        //save id transaksi ke tabel confirmation
+        $confirmation = new Confirmation();
+        $confirmation->transaction_id = $id;
+        $confirmation->save();
+
+        //link untuk konfirmasi
+        $conf_url = url('/member/orders/confirmation', $transaction->id);
 
         Session::flash("flash_notification", [
         "level"=>"success",
-        "message"=>"Transaksi Berhasil"
+        "message"=>"Transaksi Berhasil, Segera lakukan konfirmasi pembayaran.
+                    <a href='$conf_url'>Klik disini</a>."
         ]);
 
-        return redirect()->route('orders.edit',$id);
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -192,60 +203,17 @@ class MemberOrdersController extends Controller
         //
     }
 
+    //view konfirmasi
+    public function conf($id)
+    {
+        $transaction = Transaction::with('user','place','car')->find($id);
+        $confirmation = DB::table('confirmations')
+        ->where('transaction_id','=', $id)->get();
+        return view('members.confirmation')->with(compact('transaction','confirmation'));
+    }
+
     //store untuk konfirmasi
-    public function storeconf(Request $request)
-    {
-        $this->validate($request, [
-        'transaction_id' => 'required',
-        'payment_method' => 'required',
-        'info' => 'required',
-        'paid_total' => 'required|numeric',
-        ]);
-
-        $confirmation = Confirmation::create($request->all());
-
-        Session::flash("flash_notification", [
-            "level"=>"success",
-            "message"=>"Transaksi berhasil, segera lakukan konfirmasi"
-        ]);
-
-        return redirect()->route('orders.index');
-    }
-
-    //view dari search-dest/budget
-    public function orderdest($id)
-    {
-        $dest = $id;
-        return view('members.orders.order-dest')->with(compact('dest'));
-    }
-
-    //view dari search-car
-    public function ordercar($id)
-    {
-        $car = $id;
-        return view('members.orders.order-car')->with(compact('car'));
-    }
-
-    //cetak invoice
-    public function cetak($id)
-    {
-        $transaction = Transaction::with('user','place','car')->find($id);
-        $confirmation = DB::table('confirmations')
-        ->where('transaction_id','=', $id)->get();
-        return view('members.cetak')->with(compact('transaction','confirmation'));
-    }
-
-    //view unggah bukti pembayaran
-    public function upconf($id)
-    {
-        $transaction = Transaction::with('user','place','car')->find($id);
-        $confirmation = DB::table('confirmations')
-        ->where('transaction_id','=', $id)->get();
-        return view('members.up_bukti')->with(compact('transaction','confirmation'));
-    }
-
-    //store unggah bukti pembayaran
-    public function storeupconf(Request $request, $id)
+    public function storeconf(Request $request, $id)
     {
       $this->validate($request, [
       'transaction_id' => 'required',
@@ -286,10 +254,32 @@ class MemberOrdersController extends Controller
 
       Session::flash("flash_notification", [
           "level"=>"success",
-          "message"=>"Unggah bukti pembayaran berhasil"
+          "message"=>"Konfirmasi pembayaran berhasil"
       ]);
 
       return redirect()->route('orders.index');
     }
 
+    //view dari search-dest/budget
+    public function orderdest($id)
+    {
+        $dest = $id;
+        return view('members.orders.order-dest')->with(compact('dest'));
+    }
+
+    //view dari search-car
+    public function ordercar($id)
+    {
+        $car = $id;
+        return view('members.orders.order-car')->with(compact('car'));
+    }
+
+    //cetak invoice
+    public function cetak($id)
+    {
+        $transaction = Transaction::with('user','place','car')->find($id);
+        $confirmation = DB::table('confirmations')
+        ->where('transaction_id','=', $id)->get();
+        return view('members.cetak')->with(compact('transaction','confirmation'));
+    }
 }

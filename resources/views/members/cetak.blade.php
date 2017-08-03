@@ -49,8 +49,8 @@
                                             <table style="width: 100%; border-collapse: collapse;" width="100%" cellspacing="0" cellpadding="0">
                                                 <tbody>
                                                     <tr>
-                                                        <td style="width: 90px; font-weight: 600; padding: 3px 20px 3px 0;" width="80">ID Transaksi</td>
-                                                        <td style="padding: 3px 0;">{{$transaction->id}}</td>
+                                                        <td style="width: 90px; font-weight: 600; padding: 3px 20px 3px 0;" width="80">Kode Transaksi</td>
+                                                        <td style="padding: 3px 0;">{{$transaction->code}}</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -79,8 +79,11 @@
                                                     <tr>
                                                         <td style="width: 80px;vertical-align: text-top; font-weight: 600; padding: 3px 20px 3px 0;" width="80">Pembayaran</td>
                                                         <td>
-                                                            <div style="padding-bottom: 3px;">{{$transaction->confirmation->payment_method}} {{$transaction->confirmation->info}} &nbsp;
-                                                            </div>
+                                                          @if (isset($transaction->confirmation->payment_method) && $transaction->confirmation->info)
+                                                            <div style="padding-bottom: 3px;">{{$transaction->confirmation->payment_method}} {{$transaction->confirmation->info}}</div>
+                                                          @else
+                                                            <div style="padding-bottom: 3px;"><i>Belum Dibayar</i></div>
+                                                          @endif
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -107,7 +110,7 @@
                             <td style="text-align: left; padding: 8px 5px 8px 15px;">{{$transaction->place->name}}</td>
                             <td style="width: 120px; padding: 8px 5px;" width="120">{{$transaction->car->name}}</td>
                             <td style="width: 65px; padding: 8px 5px;" width="65">{{$transaction->total_participants}}</td>
-                            <td style="width: 115px; padding: 8px 5px;" width="115">{{$transaction->confirmation->status}}</td>
+                            <td style="width: 115px; padding: 8px 5px;" width="115">{{$transaction->status}}</td>
                             <td style="width: 115px; text-align: right; padding: 8px 30px 8px 5px;" width="115">{{$transaction->start_date}}</td>
                         </tr>
                         <tr style="font-size: 13px; background-color: #F1F1F1;" bgcolor="#F1F1F1">
